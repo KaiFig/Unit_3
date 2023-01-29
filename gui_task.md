@@ -98,4 +98,117 @@ Screen:
     MDChip:
       text: "Author A"
       pos_hint
+      
+```
+## Task 1:
+
+### Python
+```.py
+from kivymd.app import MDApp
+
+
+class gui_test(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.count = 0
+    def build(self):
+        return
+    def usdconvert(self):
+        number = self.root.ids.currency_input.text
+        if number.isdigit():
+            self.count = round(int(number) * 0.00022, 2)
+            self.root.ids.converted_amount.text = f" {self.count} USD"
+        else:
+            self.root.ids.converted_amount.text = "Please input an integer"
+
+    def jpyconvert(self):
+        number = self.root.ids.currency_input.text
+        if number.isdigit():
+            self.count = round(int(number) * 0.029, 2)
+            self.root.ids.converted_amount.text = f" {self.count} JPY"
+        else:
+            self.root.ids.converted_amount.text = "Please input an integer"
+
+
+
+
+m = gui_test()
+m.run()
+
+```
+### Kivy
+
+```.kv
+
+Screen:
+    size:500,500 #width, height
+    md_bg_color: "#a3b18a"
+
+    MDBoxLayout:
+        id: main_box
+        orientation: "vertical"
+        size_hint: .75, .75
+        pos_hint: {"center_x": .5, "center_y":.5}
+
+        MDLabel:
+            id: title
+            font_size: 50
+            halign: "center"
+            text: "Currency converter"
+            size_hint: 1, 0.2
+            pos_hint: {"center_x": .5}
+
+        MDTextField:
+            id: currency_input
+            hint_text: "Enter an amount in Colombian Pesos"
+            mode: "rectangle"
+            size_hint: .8, .1
+            pos_hint: {"center_x": .5}
+
+        MDBoxLayout:
+            id: second_box
+            orientation: "horizontal"
+            size_hint: 1, 0.4
+            pos_hint: {"center_x": .5}
+
+            MDLabel:
+                id: click
+                text: "Click to convert"
+                size_hint: 0.5, 1
+                pos_hint: {"center_x": .2, "center_y": .5}
+
+            MDBoxLayout:
+                id: third_box
+                orientation: "vertical"
+                size_hint: .5, 1
+
+                MDBoxLayout:
+                    id: fourth_box
+                    orientation: "horizontal"
+                    size_hint: .5,1
+
+                    MDChip:
+                        id: jpy
+                        text: "USD"
+                        pos_hint: {"center_x": .25, "center_y": .25}
+                        md_bg_color: "#02075d"
+                        on_press: app.usdconvert()
+                        text_color: "#FFFFFF"
+
+                    MDChip:
+                        id: usd
+                        text: "JPY"
+                        pos_hint: {"center_x": .75, "center_y": .25}
+                        md_bg_color: "#FF0000"
+                        on_press: app.jpyconvert()
+
+                MDLabel:
+                    id: converted_amount
+                    halign: "center"
+                    size_hint: 0.5, .7
+                    text: ""
+                    font_size: 50
+
+```
+
 
