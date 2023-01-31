@@ -134,9 +134,9 @@ class gui_test(MDApp):
 
 m = gui_test()
 m.run()
-
 ```
 ### Kivy
+
 
 ```.kv
 
@@ -161,7 +161,6 @@ Screen:
         MDTextField:
             id: currency_input
             hint_text: "Enter an amount in Colombian Pesos"
-            mode: "rectangle"
             size_hint: .8, .1
             pos_hint: {"center_x": .5}
 
@@ -175,7 +174,8 @@ Screen:
                 id: click
                 text: "Click to convert"
                 size_hint: 0.5, 1
-                pos_hint: {"center_x": .2, "center_y": .5}
+                pos_hint: {"center_x": .5, "center_y": .75}
+                halign: "center"
 
             MDBoxLayout:
                 id: third_box
@@ -187,18 +187,18 @@ Screen:
                     orientation: "horizontal"
                     size_hint: .5,1
 
-                    MDChip:
+                    MDRaisedButton:
                         id: jpy
                         text: "USD"
-                        pos_hint: {"center_x": .25, "center_y": .25}
+                        pos_hint: {"center_x": .25, "center_y": .5}
                         md_bg_color: "#02075d"
                         on_press: app.usdconvert()
                         text_color: "#FFFFFF"
 
-                    MDChip:
+                    MDRaisedButton:
                         id: usd
                         text: "JPY"
-                        pos_hint: {"center_x": .75, "center_y": .25}
+                        pos_hint: {"center_x": .75, "center_y": .5}
                         md_bg_color: "#FF0000"
                         on_press: app.jpyconvert()
 
@@ -211,5 +211,8 @@ Screen:
 
 ```
 
-![screenshot](https://github.com/KaiFig/Unit_3/blob/main/Tasks/GUI_currency%20converter.jpg)
+![screenshot](https://github.com/KaiFig/Unit_3/blob/main/Tasks/Screenshot%202023-01-31%20at%2010.07.49%20AM.png)
+![screenshot](https://github.com/KaiFig/Unit_3/blob/main/Tasks/Screenshot%202023-01-31%20at%2010.07.40%20AM.png)
+![screenshot](https://github.com/KaiFig/Unit_3/blob/main/Tasks/Screenshot%202023-01-31%20at%2010.07.34%20AM.png)
+![screenshot](https://github.com/KaiFig/Unit_3/blob/main/Tasks/Screenshot%202023-01-31%20at%2010.07.20%20AM.png)
 
