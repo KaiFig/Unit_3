@@ -26,8 +26,9 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
-| 1       | Write the Problem definition                        | Identitfy the background to a problem at ISAK that relates to our project  | 10min         | Nov 21                 | A         |
-| 2       | Write the Problem defition                        | Expand our problem context and identify a customer and their specific problem so that we know what we need to acheive with our project  |  20min         | Nov 21                 | A         |
-|3       | Write the design statement   | We have a design statement so we are able to proceed forward with a clear goal and vision for our project |10 min | Nov 22    | A     | 
-
+| 1       | Interview my client                         | To identify what my client wants for a database  | 15min         | Feb 10                | A         |
+| 2       | Write the Problem defition                        | Expand our problem context and identify a customer and their specific problem so that we know what we need to acheive with our project  |  20min         | Feb 11          | A         |
+|3       | Write the proposed solution and show to client   | My client is able to see what I am creating as a solution and input feedback so that he gets what he wants |20 min | Feb 12    | A     | 
+|4       | Write the design statement | Able to proceed with a clear plan and goal now that the designb statement is written    | 10 min  | Feb 13  | A |
+|5       | Write each success criteria  | Have a clear outline of what is needed to be acheived for my client so I am able to fulfill the clients needs   | 20 min | Feb 13 | A  |
 
