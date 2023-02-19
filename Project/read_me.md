@@ -1,5 +1,6 @@
 
 # Unit 3 project
+![Title picture](https://github.com/KaiFig/Unit_3/blob/main/Project/football_pic_project_3.webp)
 
 
 # Criteria A: Planning
