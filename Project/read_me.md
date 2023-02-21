@@ -15,10 +15,12 @@ My proposed solution is to create a mobile app that enables my client to record 
 I will design and make a mobile app for a client who is very invested in footbal. The mobile app will eneable the client to build a digital record of the games he has seen or played in. It will be constructed using the software python, kivy for the webpage, and sql to create a database. It will take around 3 weeks to make and will be evaluated according to the criteria A, B, C, and D.  
 
 ## Success criteria
-1. The solution is a software based app
-2. The user is able to record their own scores
-3. The application has a timeline of the game
-4. The application has a secure login page with a hashed password  
+1. The application has a secure login and registration
+2. The application enables the user to record each match (final score, players, time of game, location, time of goals, time of substitutions and persons substitued) 
+3. The application has a timeline of the game with the record that the user inputs explained in success criteria 2
+4. For each match that the user records, there is a seperate page with the timeline and inputs
+5. The application will have an overview screen that displays each game in chronolgical order 
+6. The application enables the user to copy images onto it
 
 
 # Criteria B: 
