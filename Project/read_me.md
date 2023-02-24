@@ -29,9 +29,13 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
-| 1       | Interview my client                         | To identify what my client wants for a database  | 15min         | Feb 10                | A         |
+| 1       | Meeting my client                         | To identify what my client wants for a database  | 15min         | Feb 10                | A         |
 | 2       | Write the Problem defition                        | Expand our problem context and identify a customer and their specific problem so that we know what we need to acheive with our project  |  20min         | Feb 11          | A         |
 |3       | Write the proposed solution and show to client   | My client is able to see what I am creating as a solution and input feedback so that he gets what he wants |20 min | Feb 12    | A     | 
 |4       | Write the design statement | Able to proceed with a clear plan and goal now that the designb statement is written    | 10 min  | Feb 13  | A |
 |5       | Write each success criteria  | Have a clear outline of what is needed to be acheived for my client so I am able to fulfill the clients needs   | 20 min | Feb 13 | A  |
+|6      | Get approval of my success critieria from my client   | To confirm that what I am doing is what the client wants and it fulfills their needs  | 15 min  | Feb 20  | A   | 
+|7    | Create the login page and registration page     | I am able to have a login page for my website and also a registration so that new users can also use the page   | 30 min  | Feb 21 | C 
+|8    | Create the wireframe diagram of the whole application   | I am able to see what is needed in each page so that I have a clear idea of what I need to code | 45 min  | Feb 21 
+| 
 
