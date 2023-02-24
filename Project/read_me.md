@@ -37,5 +37,9 @@ I will design and make a mobile app for a client who is very invested in footbal
 |6      | Get approval of my success critieria from my client   | To confirm that what I am doing is what the client wants and it fulfills their needs  | 15 min  | Feb 20  | A   | 
 |7    | Create the login page and registration page     | I am able to have a login page for my website and also a registration so that new users can also use the page   | 30 min  | Feb 21 | C 
 |8    | Create the wireframe diagram of the whole application   | I am able to see what is needed in each page so that I have a clear idea of what I need to code | 45 min  | Feb 21 
-| 
 
+
+| Instruction                        | Category     | Input example / code                               | Description                                                                                                        | Expected output                                                         | Success criteria |
+|------------------------------------|--------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|------------------|
+| Test registration system           | Unit testing | username, email, password, confirm password        | Save a new user to the database                                                                                    | Input is added to database "users", window is switched to main menu     | 1     |
+| Test recording system              | Unit testing | Team name, score, date, location, player names  | It saves a match to a database  | Input is added to database "record", window is switched to the home screen  | 2, 3
