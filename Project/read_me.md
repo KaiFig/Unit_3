@@ -36,10 +36,14 @@ I will design and make a mobile app for a client who is very invested in footbal
 |5       | Write each success criteria  | Have a clear outline of what is needed to be acheived for my client so I am able to fulfill the clients needs   | 20 min | Feb 13 | A  |
 |6      | Get approval of my success critieria from my client   | To confirm that what I am doing is what the client wants and it fulfills their needs  | 15 min  | Feb 20  | A   | 
 |7    | Create the login page and registration page     | I am able to have a login page for my website and also a registration so that new users can also use the page   | 30 min  | Feb 21 | C 
-|8    | Create the wireframe diagram of the whole application   | I am able to see what is needed in each page so that I have a clear idea of what I need to code | 45 min  | Feb 21 
+|8    | Create the wireframe diagram of the whole application   | I am able to see what is needed in each page so that I have a clear idea of what I need to code | 45 min  | Feb 21 | B
+|9    | Create the home screen of the application     | I am able to have a home screen for the user to be able to come back to and buttosn to access all parts of the application  | 1 hr  | Feb 24 | C
+|10   | Create the record screen of the application   | The user is able to record basic information of each football match that he plays and it is saved on a database called record.db  | 1 hr  | Feb 26  | C
+
 
 
 | Instruction                        | Category     | Input example / code                               | Description                                                                                                        | Expected output                                                         | Success criteria |
 |------------------------------------|--------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|------------------|
 | Test registration system           | Unit testing | username, email, password, confirm password        | Save a new user to the database                                                                                    | Input is added to database "users", window is switched to main menu     | 1     |
 | Test recording system              | Unit testing | Team name, score, date, location, player names  | It saves a match to a database  | Input is added to database "record", window is switched to the home screen  | 2, 3
+| Test details screen               | Unit testing  | Click on the home screen checkboxes | It opens the details screen with more details  | The details screen is opened and the details of the game are all displayed with buttons to go back and forward   | 3 and 4
