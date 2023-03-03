@@ -37,10 +37,13 @@ I will design and make a mobile app for a client who is very invested in footbal
 |6      | Get approval of my success critieria from my client   | To confirm that what I am doing is what the client wants and it fulfills their needs  | 15 min  | Feb 20  | A   | 
 |7    | Create the login page and registration page     | I am able to have a login page for my website and also a registration so that new users can also use the page   | 30 min  | Feb 21 | C 
 |8    | Create the wireframe diagram of the whole application   | I am able to see what is needed in each page so that I have a clear idea of what I need to code | 45 min  | Feb 21 | B
-|9    | Create the home screen of the application     | I am able to have a home screen for the user to be able to come back to and buttosn to access all parts of the application  | 1 hr  | Feb 24 | C
-|10   | Create the record screen of the application   | The user is able to record basic information of each football match that he plays and it is saved on a database called record.db  | 1 hr  | Feb 26  | C
-|11   | Fix the databases     | The database, instead of having multiple database, it is one database with multiple tables    | 30 min  | Feb 28  | C |
-|12  | Create the details page  | The page has a greater detail of what the game is and only shows one game   | 45 min    | Mar 1   | C| 
+| 9   | Create the UML diagram for the application    | Can see what my databases need to have    | 30 min    | Feb 22    | B |
+|10   | Create the system diagram             | Can showcase what my whole system will look like  | 30 min    | Feb 22    | B   |
+|11    | Create the ER diagram        | I can see my database and the connection between the different tables   | 30 min  | Feb 23 | B | 
+|12    | Create the home screen of the application     | I am able to have a home screen for the user to be able to come back to and buttosn to access all parts of the application  | 1 hr  | Feb 24 | C
+|13   | Create the record screen of the application   | The user is able to record basic information of each football match that he plays and it is saved on a database called record.db  | 1 hr  | Feb 26  | C
+|14   | Fix the databases     | The database, instead of having multiple database, it is one database with multiple tables    | 30 min  | Feb 28  | C |
+|15  | Create the details page  | The page has a greater detail of what the game is and only shows one game   | 45 min    | Mar 1   | C| 
 
 
 
