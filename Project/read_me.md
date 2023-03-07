@@ -50,6 +50,10 @@ I will design and make a mobile app for a client who is very invested in footbal
 |13   | Create the record screen of the application   | The user is able to record basic information of each football match that he plays and it is saved on a database called record.db  | 1 hr  | Feb 26  | C
 |14   | Fix the databases     | The database, instead of having multiple database, it is one database with multiple tables    | 30 min  | Feb 28  | C |
 |15  | Create the details page  | The page has a greater detail of what the game is and only shows one game   | 45 min    | Mar 1   | C| 
+|16  | Create pages to record goals and substitutions   | This enables the user to record goals and substitutions that happen in each football match that they have recorded  | 1 hr  | Mar 2 | C  | 
+|17  | Create the timeline database   | This saves the inputs of the suer from the goal and substitution pages  | 30 min  | Mar 2 | C|
+|18   | Show the timeline on the details page | For each game, the user is able to see a timeline of the substitutions and the goals  | 30 min  | Mar 3   | C | 
+|19   | Fix kivy layout on each page  | The website looks much cleaner before and the user is able to have a better experience  | 2 hrs     | Mar 7 | C| 
 
 
 
