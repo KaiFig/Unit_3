@@ -26,7 +26,7 @@ I will design and make a mobile app for a client who is very invested in footbal
 3. The application has a timeline of the game with the record that the user inputs explained in success criteria 2
 4. For each match that the user records, there is a seperate page with the timeline and inputs
 5. The application will have an overview screen that displays each game in chronolgical order 
-6. The application enables the user to copy images onto it
+6. The aapplication enables the user to record each goal and substitution in real-time
 
 
 # Criteria B: 
