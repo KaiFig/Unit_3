@@ -31,6 +31,27 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 # Criteria B: 
 
+## System diagram
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Project3_system_diagram.jpg)
+**Fig x** This shows the system diagram which shows the different applications used in creating the app and the input and output of it
+##ER diagram
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/ER_diagram.jpg)
+**Fig x** This shows the ER diagram which showcases the projects databases and the relationships between the different tables of it 
+##UML diagram
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/UML_diagram.jpg)
+**Fig x** This shows the UML diagram for the application. It shows each page and the functions that they have and how it inherits from the parent classes 
+##Wireframe diagram 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/wireframe_diagram.jpg)
+**Fig x** This shows the wireframe diagram for the application. It was a basic sketch at the beginnning of the project to show how each page was going to look to form a plan for the project 
+##Flowcharts 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart1.jpg)
+**Fig x** This is the first flowchart which shows the function for making sure the text inputs are not empty. This is important so that the user inputs all the data and doesn't forget about it
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart%202.jpg)
+**Fig x** This shows the login page in the application. It takes the user inputs and checks them with the database called "my_application", specifically the table "users". This enables me to check if the user is legitimate and it also allows me to check the password with the hash to improve security 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart%203.jpg)
+**Fig x** This shows the registration page in the application, specifically the function that is called when the button to submit the input is pressed. It saves the inputs to the database and it also makes sure that the password is more than the minimum length
+
+
 ## Record of tasks
 
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
@@ -63,3 +84,19 @@ I will design and make a mobile app for a client who is very invested in footbal
 | Test registration system           | Unit testing | username, email, password, confirm password        | Save a new user to the database                                                                                    | Input is added to database "users", window is switched to main menu     | 1     |
 | Test recording system              | Unit testing | Team name, score, date, location, player names  | It saves a match to a database  | Input is added to database "record", window is switched to the home screen  | 2, 3
 | Test details screen               | Unit testing  | Click on the home screen checkboxes | It opens the details screen with more details  | The details screen is opened and the details of the game are all displayed with buttons to go back and forward   | 3 and 4
+
+
+# Criteria C: Development
+
+
+## Existing Tools
+
+| Software/Development Tools | Coding Structure Tools          | Libraries      |
+|----------------------------|---------------------------------|----------------|
+| PyCharm                    | for loops                       | KivyMD Library |
+| Relational databases       | Objects, attributes and methods | sqlite3        |
+| SQLite                     | OOP structures (classes)        | datetime       |
+| Python                     | Encryption                      |                |
+| KivyMD                     | if statements                   |        |
+
+
