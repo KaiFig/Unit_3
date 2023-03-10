@@ -11,9 +11,11 @@ My client is an ISAK student who enjoys watching and playing footabll a lot. How
 ## Rationale for Proposed Solution
 My proposed solution is to create a mobile app that enables my client to record these details by themselves. As it is saved on the app, the client would not have to look the games up using the internet. Additonally, the client will be able to record all the games that he wants, even those that are not found on the internet. This will enable the client to upload their own scores, with no reliance on internet sources, to produce the record that he wants. 
 
-I will be using python as the primary coding language for a variety of reasons. First of all, it is a very flexible coding language and I can reuse some code that we have already made. Additionally, it is compatible with both KivyMD and SQLite, enabling me to meet the clients needs on the application. The final reason is that this is the only coding language that I am good at and using it will speed up the process much more compared to having to learn another language. 
+I will be using python as the primary coding language for a variety of reasons. First of all, it is a very flexible coding language and I can reuse some code that we have already made as it is very versatile [^2]. Additionally, it has a wide range of libraries that can be used to fulfill the clients needs on the project[^6]. The final reason is that this is the only coding language that I am good at and it is very easy to learn as it has a very simple syntax[^7]. Using it will speed up the process much more compared to having to learn another language. 
 
-For the GUI design, I will be using KivyMD. In the project I will be using it to act as the interface between the user and the actual software. The user will be able to send inputs through their keyboard and alter information on the actual application and the databases available to the user. This is of utmost importance in this project as without it, the user will not be able to look at the football match log.
+For the GUI design, I will be using KivyMD. In the project I will be using it to act as the interface between the user and the actual software. The user will be able to send inputs through their keyboard and alter information on the actual application and the databases available to the user. KIVYMD is coded in python which is beneficial to this project as it is also in python and it is very simple to use [^3]. This is of utmost importance in this project as without it, the user will not be able to look at the football match log.
+
+For the database, I will be using SQlite3. THe reason for this is that sqlite is very beginner-friendly not requiring any configuration or set up . This is of utmost improtance to both the developer and the client as we are both newly familiarized with this software and it enables to understand it easier[^5]. Additionally, it is compatible across a wide range of operating systems enabling the code to be used far and wide and by a number of different people[^4]. The final great thing about SQLite is that the resulting file is only one so it is very small and easy to share [^1]. 
 
 
 
@@ -44,11 +46,11 @@ I will design and make a mobile app for a client who is very invested in footbal
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/wireframe_diagram.jpg)
 **Fig x** This shows the wireframe diagram for the application. It was a basic sketch at the beginnning of the project to show how each page was going to look to form a plan for the project 
 ##Flowcharts 
-![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart1.jpg)
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_1.jpg)
 **Fig x** This is the first flowchart which shows the function for making sure the text inputs are not empty. This is important so that the user inputs all the data and doesn't forget about it
-![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart%202.jpg)
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_2.jpg)
 **Fig x** This shows the login page in the application. It takes the user inputs and checks them with the database called "my_application", specifically the table "users". This enables me to check if the user is legitimate and it also allows me to check the password with the hash to improve security 
-![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart%203.jpg)
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_3.jpg)
 **Fig x** This shows the registration page in the application, specifically the function that is called when the button to submit the input is pressed. It saves the inputs to the database and it also makes sure that the password is more than the minimum length
 
 
@@ -172,6 +174,17 @@ class RecordScreen(MDScreen):
 The user first inputs the information into different text boxes in the GUI then presses the submit button. When the submit button is pressed it calls this function. It first gets the user data through each text box, referencing their ids to get the information. Then the information is checked to make sure it is not empty (in another function). After this the date is validated. 
 
 The date validation for this example unfortunately looks very messy and is not very well written. As I wasn't sure how to do it as I haven't researched enough about the datetime library to see if there were any ways of validating it there. Therefore, I just made the validation into a bunch of if statements that enable me to check. Unfortunately the byproduct of this it is very long as multiple if statememts are needed to validate it. 
+
+## Setting up file
+```.py
+import sqlite3
+import datetime
+from kivymd.app import MDApp
+from kivymd.uix.datatables import MDDataTable
+from kivymd.uix.screen import MDScreen
+from hash_password import encrpyt_password, check_password
+```
+**Fig x** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 
 
 ## Create table 
 ```.py
@@ -489,3 +502,13 @@ db.close()
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_1.jpg)
 **Fig x** This is the original contract for my project 3 that was signed by me and my client
 
+## Citations
+[^1]: Appropriate Uses for SQLite, https://www.sqlite.org/whentouse.html#:~:text=The%20advantage%20of%20SQLite%20is,or%20emailed%20to%20a%20colleague.&amp;text=Many%20applications%20use%20SQLite%20as,content%20from%20an%20enterprise%20RDBMS. 
+[^2]:Jalli, Artturi. “9 Reasons Why Python Is so Popular in 2023.” Codingem.com, 13 Dec. 2022, https://www.codingem.com/why-is-python-so-popular/. 
+[^3]:“Kivy vs Flutter: Learn the Key Differences between Kivy and Flutter.” EDUCBA, 13 June 2022, https://www.educba.com/kivy-vs-flutter/. 
+[^4]:S, Ravikiran A. “What Is Sqlite? and When to Use It?” Simplilearn.com, Simplilearn, 16 Feb. 2023, https://www.simplilearn.com/tutorials/sql-tutorial/what-is-sqlite. 
+[^5]: “SQLITE3 - DB-API 2.0 Interface for SQLite Databases.” Python Documentation, https://docs.python.org/3/library/sqlite3.html. 
+[^6]: “Top 10 Reasons Why Python Is so Popular with Developers in 2023.” UpGrad Blog, 23 Nov. 2022, https://www.upgrad.com/blog/reasons-why-python-popular-with-developers/#:~:text=The%20python%20language%20is%20one,faster%20than%20other%20programming%20languages. 
+[^7]: “Why Is Python so Popular?” Pulumi, https://www.pulumi.com/why-is-python-so-popular/. 
+[^7]: 
+[^8]:
