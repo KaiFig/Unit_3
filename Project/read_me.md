@@ -363,5 +363,9 @@ db.close()
 
 
 # Appendix 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/1st_meeting.jpg)
+**Fig x** This is the notes that I had from my first meeting with my client where I was able to figure out what he wanted
+
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_1.jpg)
 **Fig x** This is the original contract for my project 3 that was signed by me and my client
+
