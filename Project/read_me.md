@@ -72,9 +72,18 @@ I will design and make a mobile app for a client who is very invested in footbal
 |14   | Fix the databases     | The database, instead of having multiple database, it is one database with multiple tables    | 30 min  | Feb 28  | C |
 |15  | Create the details page  | The page has a greater detail of what the game is and only shows one game   | 45 min    | Mar 1   | C| 
 |16  | Create pages to record goals and substitutions   | This enables the user to record goals and substitutions that happen in each football match that they have recorded  | 1 hr  | Mar 2 | C  | 
-|17  | Create the timeline database   | This saves the inputs of the suer from the goal and substitution pages  | 30 min  | Mar 2 | C|
+|17  | Create the timeline database   | This saves the inputs of the user from the goal and substitution pages  | 30 min  | Mar 2 | C|
 |18   | Show the timeline on the details page | For each game, the user is able to see a timeline of the substitutions and the goals  | 30 min  | Mar 3   | C | 
-|19   | Fix kivy layout on each page  | The website looks much cleaner before and the user is able to have a better experience  | 2 hrs     | Mar 7 | C| 
+|19   | Fix kivy layout on each page  | The website looks much cleaner before and the user is able to have a better experience  | 2 hrs     | Mar 4 | C| 
+|20   | Create validation for each input       | The user will not be able to submit an empty input and there will also be other validation such as dates and times to make sure that all the inputs are valid  | 45 min    | Mar 4     | C | 
+|21   | Fix the record goals and substitutions screens  | It validates the team names to make sure that the inputs that the user is entering are valid  | Mar 5     | C |
+|22    | Go through my criteria A and B     | Make sure that it is thorough enough to submit the application and that all the charts and records are placed there | 1 hr    | Mar 8| A+B
+|23   | Start my criteria C   | Go through each tool that I have used in the project and showcase examples of it from my project    | 1 hr 45 min    | Mar 9     | C | 
+|24   | Finalize my criteria C  | Go through my criteria C and make sure that it is finalized so that I am able to make sure that all of the tools are showcased and all of my main functions are shown as well | 1 hr   | Mar 9     | C | 
+|25   | Record video    | Showcase my application in a video going through all of my functions  | 30 min    | Mar 10    | D |
+| 26   | Edit and upload video | The video is edited and uploaded and I am done with my project     | 30 min    | Mar 10       | D |
+
+
 
 
 
