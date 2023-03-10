@@ -284,4 +284,27 @@ class DetailsScreen(MDScreen):
         self.update()
 ```
 **Fig x** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
-KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with. 
+KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with.
+
+##Datetime library 
+The Datetime library enables the developer to format all the data that the user inputs into one form and able to call it in chronological order which is one of the success critieria
+```.py
+x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+db = database_worker("my_application.db")
+query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+db.run_save(query)
+db.close()
+```
+**Fig x** This is part of the main python code which enables the user to input the date for each game that they watch. The dates are made into datetime format by the datetime.datetime command
+```.py
+x = self.id_game
+db = database_worker("my_application.db")
+query = f"Select * from record where user_id={x} ORDER BY record.date1 DESC"
+data = db.search(query)
+db.close()
+self.data_table.update_row_data(None, data)
+```
+**Fig x** This is part of the main python code for the home screen which enables the user to see all the games that the user has recorded in chronological order. The use of the datetime library makes it much easier and simpler to display the games in chronological order which is good coding practice
+
+
+
