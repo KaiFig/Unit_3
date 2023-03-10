@@ -359,3 +359,9 @@ db.close()
 ```
 **Fig x** This shows part of my main python file that creates the databases and tables. Having this code in the main python enables the distribituion of the code. When it is distributed, the databases are still able to be created. 
 
+
+
+
+# Appendix 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_1.jpg)
+**Fig x** This is the original contract for my project 3 that was signed by me and my client
