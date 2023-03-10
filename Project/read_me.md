@@ -186,6 +186,43 @@ from hash_password import encrpyt_password, check_password
 ```
 **Fig x** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 is an SQL library which enables me to call the database. This enables me to get the data saved which is of utmost importance to fulfill the success critieria. The datetime library helps me order everything in chronological order which is one of my success criteria and is an example of pattern recognition. Before, I would've manually done the chronological ordering, however, with the datetime library, I am able to just use one thing across multiple places in my code. The kivymd libraries downloaded are for the main kivy file. They enable me to actually show the user interface with the tables displaying the database. Lastly, from another file, I call 2 functions which help me with the login and registration parts of the application. This shows decomposition, I was faced with a large problem and to solve it, I split into smaller actions, one of them being in the login and registration parts of the application where to simplify things I just called another function.
 
+##Recording goals
+```.py
+def submit(self):
+    teamname = self.ids.teamname.text
+    x = self.id_game
+    action = "Goal"
+    query = f"SELECT hometeamname from record WHERE game_id = '{x}'"
+    db = database_worker("my_application.db")
+    result = db.search(query=query)
+    query2 = f"SELECT awayteamname from record WHERE game_id = '{x}'"
+    result2 = db.search(query=query2)
+    db.close()
+    if teamname == result or teamname == result2:
+        time = self.ids.time.text
+        player = self.ids.player.text
+        player2 = f"{player} scored"
+        db = database_worker("my_application.db")
+        gamerecord = f"INSERT into timeline (action1, teamname, time1, player, game_id) values('{action}','{teamname}', '{time}', '{player2}','{x}')"
+        db.run_save(gamerecord)
+        db.close()
+        self.parent.current = "DetailsScreen"
+    else:
+        self.ids.teamname.error = True
+```
+**Fig x** This is the code for adding goals to the timeline database. First it gets the teamname from the user input by calling the kivy text box. Then from the record, it selects the hometeamname and awayteamname from the record database. Looking back at the code, it would've been easier to write it as one query and seperate it, however, I made two queries which makes it slightly redundant and complex. However, the code still works. After this, I check the teamname to make sure that it is either the away or the home team names and if it isn't the error shows up. IF it is then I get the rest of the user inputs from the kivy file and insert it into the database. All the tables in the database have the same user_id which makes sure that multiple users can use this application but only their data will show. 
+
+For this piece of code, I have used the computational thinking skill algorithim design to create a function to receive user inputs and validate them. I have also used decomposition in this scenario. I first got the inputs, then thought about inserting them into the database. After that was working I worked on the validation which shows how I broke this down into two smaller steps. 
+
+## Database worker
+```.py
+class database_worker:
+    def __init__(self, name):
+        self.connection = sqlite3.connect(name)
+        self.cursor = self.connection.cursor()
+```
+**Fig x** This class was created so I could form an SQL query to access the database of my application. The use of this class enables me to easily create an SQL query as the only hting I need to put is the name of the application. Then, with the functions in the class, I am able to search, save and close the connection. This is an example of pattern recognition. Querying the database is something that I have to do over and over again and the use of the database worker class enables me to create a general function that I can use every time, greatly simplifying the code. Additionally, this class takes the database name and uses a cursor to interact with the database. Therefore, this is an example of abstraction as the only thing that the developer has to do is just list the name and this class will do the work connecting to the database. 
+
 ## Create table 
 ```.py
 def on_pre_enter(self, *args):
