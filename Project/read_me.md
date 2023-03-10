@@ -99,7 +99,7 @@ I will design and make a mobile app for a client who is very invested in footbal
 | Python                     | Encryption                      |                |
 | KivyMD                     | if statements                   |                |
 
-##ORM
+## ORM
 Object relational mappping enables the application to access the database and get information from it. This enables the data to be used in the OOP 
 ```.py
 x = self.id_game
@@ -110,7 +110,7 @@ hometeamname, awayteamname, home_score, away_score, location, date1, user_id, ga
 ```
 **Fig x** The code above shows the code for my home sceen. On my home screen, there is a table, showcasing the record table in the "my_application.db" database. To get the data from the database, I use the query variable and the result which calls on a function in the class database worker in the main python file. The use of SQL commands enables me to get the data very easily from the database and showcase it, showing the user all the data they have saved in the record database. 
 
-##OOP structures
+## OOP structures
 OOP or object-orientated programing is when the code is structured around objects instead of regular coding practices. Each object represents an action or object with properties. It uses classes and each class has different functions to do different actions. Also it is possible to inherit from class to class, increasing simplicity and reducing redunancies in the code
 ```.py
 class HomeScreen(MDScreen):
@@ -164,10 +164,31 @@ class HomeScreen(MDScreen):
 ```
 **Fig x** This shows my home screen python code. For each screen in my project, each of them has their own class to help seperate them and organize the code. Additionally, in each class there are various functions connnected to buttons and inputs in the GUI. This enables the user to do the actions such as inputing data, going to the next page etc. 
 
-##Encryption
+## Encryption
 Encryption is when a string of characters is converted to a code to make it more secure and prevent unathorized access to it. This is very important to protect the security of the application and to make sure that the users passwords are not compromised 
 ```.py
+from passlib.hash import sha256_crypt
 
+#create an object of the class CryptoConrtext
+hasher = sha256_crypt.using(rounds=30000)
 
+# this function receives the unsafe password and returns hashed
+def encrpyt_password(user_password):
+    return hasher.encrypt(user_password)
+def check_password(hashed_password, user_password):
+    return hasher.verify(user_password, hashed_password)
+
+```
+**Fig x** This is a seperate file that hashes the password and also verifies it
+```.py
+from hash_password import encrpyt_password, check_password
+
+hash = encrpyt_password(passwd)
+db = database_worker("my_application.db")
+query = f"INSERT into users (email, password, username) values('{email}','{hash}','{uname}')"
+db.run_save(query)
+db.close()
+```
+**Fig x** This is from my main python file, during the signup, the user inputs their new password and verifies it, then it calls the function which was imported at the top of the file. This enables the users passwords to be encrypted and protected
 
 
