@@ -86,13 +86,16 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 
 
-
+## Test plan 
 
 | Instruction                        | Category     | Input example / code                               | Description                                                                                                        | Expected output                                                         | Success criteria |
 |------------------------------------|--------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|------------------|
 | Test registration system           | Unit testing | username, email, password, confirm password        | Save a new user to the database                                                                                    | Input is added to database "users", window is switched to main menu     | 1     |
 | Test recording system              | Unit testing | Team name, score, date, location, player names  | It saves a match to a database  | Input is added to database "record", window is switched to the home screen  | 2, 3
 | Test details screen               | Unit testing  | Click on the home screen checkboxes | It opens the details screen with more details  | The details screen is opened and the details of the game are all displayed with buttons to go back and forward   | 3 and 4
+| Test the goal and substitution pages  | Integration testing   | Name, team, id, time | From the details screen the user is able to record goals and substitutions as they happen | The user is able to input without any problem and the inputs are saved in the database, then displayed, in a table, in chronological order on the details page of the match | 3, 4, 6| 
+| Test all of the inputs to see if they can be empty    | System Testing    | All the inputs    | Test if the inputs are still able to be submitted when they are empty | This should bring an error on the User interface that informs the user that they have to put a valid input | 1, 2, 6 | 
+| Test the home screen  | Unit testing  | None  | The user clicks on the checkboxes in the homescreen and is taken to the details screen for each game  | The user is taken to the details page with the specific information about the game  | 3,4 | 
 
 
 # Criteria C: Development
