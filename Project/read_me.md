@@ -191,4 +191,97 @@ db.close()
 ```
 **Fig x** This is from my main python file, during the signup, the user inputs their new password and verifies it, then it calls the function which was imported at the top of the file. This enables the users passwords to be encrypted and protected
 
+##Kivy MD
+KivyMD ws the software tool that we used to create the GUI that the user will interact with. This is important as the user therefore doesn't see all of the code and instead only sees the interface.
+```.kv
+<LoginScreen>:
+    size: 500,500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .5, .9
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+        opacity: .7
 
+        MDLabel:
+            text: "Login"
+            font_size: 50
+            size_hint: 1, .2
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y":.5}
+        MDTextField:
+            id: uname
+            hint_text: "Enter your username or email"
+            icon_left: "email"
+            helper_text_mode: "on_error"
+            helper_text: "Login incorrect"
+            on_text: root.userid_empty()
+            required: False
+
+        MDTextField:
+            id: passwd
+            hint_text: "Enter password"
+            icon_left: "key"
+            password: True
+            helper_text_mode: "on_error"
+            helper_text: "Passswords does not match"
+            on_text: root.passwd_empty()
+            required: False
+        MDBoxLayout:
+            size_hint: 1, .1
+
+            MDRaisedButton:
+                id: login
+                text: "Login"
+                on_press: root.try_login()
+                size_hint: .3, 1
+                md_bg_color: "#fcbf49"
+            MDLabel:
+                size_hint: .3, 1
+            MDRaisedButton:
+                id: signup
+                text: "Signup"
+                on_press: root.try_register()
+                size_hint: .3, 1
+                md_bg_color: "#e63946"
+        Widget:
+            size_hint_y: None
+            height: 100
+```
+**Fig x**This is an example of my kivymd file. 
+```.py
+class DetailsScreen(MDScreen):
+    id_game=None
+    data_table = None
+    def on_pre_enter(self):
+        print("here2", self.id_game)
+        x = self.id_game
+        db = database_worker("my_application.db")
+        query = f"SELECT * from record WHERE game_id = '{x}'"
+        result = db.search(query=query)
+        hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+        self.ids.teams.text = f"{hometeamname} vs {awayteamname}"
+        self.ids.location.text = location
+        self.ids.date.text = date1
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=True,
+            # title of the table
+            column_data=[("Action", 45),
+                         ("Teamname", 40),
+                         ("Time", 20),
+                         ("Player", 100),
+                         ("game_id", 30)
+                         ]
+        )
+        # add the functions for events of the mouse
+        # self.data_table.bind(on_row_press=self.row_pressed)
+        self.add_widget(self.data_table)
+        self.update()
+```
+**Fig x** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
+KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with. 
