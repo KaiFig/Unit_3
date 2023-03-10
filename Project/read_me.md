@@ -203,7 +203,7 @@ db.close()
 ```
 **Fig x** This is from my main python file, during the signup, the user inputs their new password and verifies it, then it calls the function which was imported at the top of the file. This enables the users passwords to be encrypted and protected
 
-##Kivy MD
+## Kivy MD
 KivyMD ws the software tool that we used to create the GUI that the user will interact with. This is important as the user therefore doesn't see all of the code and instead only sees the interface.
 ```.kv
 <LoginScreen>:
@@ -297,6 +297,33 @@ class DetailsScreen(MDScreen):
 ```
 **Fig x** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
 KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with.
+
+##MDTextField
+Text fields allow the user to input data to save on the application
+
+```.kv
+MDTextField:
+id: uname
+hint_text: "Enter your username or email"
+icon_left: "email"
+helper_text_mode: "on_error"
+helper_text: "Login incorrect"
+on_text: root.userid_empty()
+required: False
+```
+**Fig x** This specific text input allows the user to enter their username or their email to login into the application. There is also a function attached to it with the "on_text" piece of code. This enables the kivy file to be connected to the python file and run functions which enable the GUI to be adapted and edited.
+
+##MDRaisedButton
+These allow functions to be called and actions to be done
+```.kv
+MDRaisedButton:
+id: signup
+text: "Signup"
+on_press: root.try_register()
+size_hint: .3, 1
+md_bg_color: "#e63946"
+```
+**Fig x** This specific button is in my main kivy file. It enables the user to press it and move to a different page by calling a function in the main python file
 
 ##Datetime library 
 The Datetime library enables the developer to format all the data that the user inputs into one form and able to call it in chronological order which is one of the success critieria
