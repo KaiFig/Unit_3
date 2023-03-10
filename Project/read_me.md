@@ -227,7 +227,7 @@ class database_worker:
 ```.py
 def on_pre_enter(self, *args):
 # before the screen is created this code is run
-self.data_table = MDDataTable(
+    self.data_table = MDDataTable(
     size_hint=(.8, .5),
     pos_hint={"center_x": .5, "center_y": .5},
     use_pagination=True,
@@ -249,6 +249,7 @@ self.data_table = MDDataTable(
     self.add_widget(self.data_table)
     self.update()
 ```
+**Fig x** This function creates the table for the home screen. This connects to the kivy MD file as it displays a table on the user interface with the data from the database. Additionally, it has checkboxes which when pressed are taken to another function which opens up the detail screen for each game. This fulfills multiple success critieria as it also is able to be listed in chronological order when the data is queryed from the database. 
 
 
 ##  Decomposition
@@ -441,7 +442,7 @@ class DetailsScreen(MDScreen):
 **Fig x** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
 KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with.
 
-##MDTextField
+## MDTextField
 Text fields allow the user to input data to save on the application
 
 ```.kv
@@ -456,7 +457,7 @@ required: False
 ```
 **Fig x** This specific text input allows the user to enter their username or their email to login into the application. There is also a function attached to it with the "on_text" piece of code. This enables the kivy file to be connected to the python file and run functions which enable the GUI to be adapted and edited.
 
-##MDRaisedButton
+## MDRaisedButton
 These allow functions to be called and actions to be done
 ```.kv
 MDRaisedButton:
@@ -468,7 +469,7 @@ md_bg_color: "#e63946"
 ```
 **Fig x** This specific button is in my main kivy file. It enables the user to press it and move to a different page by calling a function in the main python file
 
-##Datetime library 
+## Datetime library 
 The Datetime library enables the developer to format all the data that the user inputs into one form and able to call it in chronological order which is one of the success critieria
 ```.py
 x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
