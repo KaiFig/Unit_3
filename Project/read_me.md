@@ -184,7 +184,7 @@ from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.screen import MDScreen
 from hash_password import encrpyt_password, check_password
 ```
-**Fig x** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 
+**Fig x** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 is an SQL library which enables me to call the database. This enables me to get the data saved which is of utmost importance to fulfill the success critieria. The datetime library helps me order everything in chronological order which is one of my success criteria and is an example of pattern recognition. Before, I would've manually done the chronological ordering, however, with the datetime library, I am able to just use one thing across multiple places in my code. The kivymd libraries downloaded are for the main kivy file. They enable me to actually show the user interface with the tables displaying the database. Lastly, from another file, I call 2 functions which help me with the login and registration parts of the application. This shows decomposition, I was faced with a large problem and to solve it, I split into smaller actions, one of them being in the login and registration parts of the application where to simplify things I just called another function.
 
 ## Create table 
 ```.py
