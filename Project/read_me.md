@@ -93,10 +93,81 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 | Software/Development Tools | Coding Structure Tools          | Libraries      |
 |----------------------------|---------------------------------|----------------|
-| PyCharm                    | for loops                       | KivyMD Library |
+| PyCharm                    | ORM                             | KivyMD Library |
 | Relational databases       | Objects, attributes and methods | sqlite3        |
 | SQLite                     | OOP structures (classes)        | datetime       |
 | Python                     | Encryption                      |                |
-| KivyMD                     | if statements                   |        |
+| KivyMD                     | if statements                   |                |
+
+##ORM
+Object relational mappping enables the application to access the database and get information from it. This enables the data to be used in the OOP 
+```.py
+x = self.id_game
+db = database_worker("my_application.db")
+query = f"SELECT * from record WHERE game_id = '{x}'"
+result = db.search(query=query)
+hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+```
+**Fig x** The code above shows the code for my home sceen. On my home screen, there is a table, showcasing the record table in the "my_application.db" database. To get the data from the database, I use the query variable and the result which calls on a function in the class database worker in the main python file. The use of SQL commands enables me to get the data very easily from the database and showcase it, showing the user all the data they have saved in the record database. 
+
+##OOP structures
+OOP or object-orientated programing is when the code is structured around objects instead of regular coding practices. Each object represents an action or object with properties. It uses classes and each class has different functions to do different actions. Also it is possible to inherit from class to class, increasing simplicity and reducing redunancies in the code
+```.py
+class HomeScreen(MDScreen):
+    data_table = None
+    id_game = None
+    def on_pre_enter(self, *args):
+        # before the screen is created this code is run
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=True,
+            check=True,
+            # title of the table
+            column_data=[("Home team name ", 80),
+                         ("Away team name", 60),
+                         ("Home_score", 40),
+                         ("Away_score", 40),
+                         ("Location", 60),
+                         ("date1", 30),
+                         ("ID", 30),
+                         ("ID", 30)
+                         ]
+        )
+        # add the functions for events of the mouse
+        #self.data_table.bind(on_row_press=self.row_pressed)
+        self.data_table.bind(on_check_press=self.check_pressed)
+        self.add_widget(self.data_table)
+        self.update()
+
+    def check_pressed(self, table, row):
+        print("here", row)
+        DetailsScreen.id_game = row[7]
+        RecordPScreen.id_game = row[7]
+        RecordSubScreen.id_game = row[7]
+        self.parent.current = "DetailsScreen"
+        db.close()
+
+    def update(self):
+        x = self.id_game
+        print(f" this is id {x}")
+        print(int(x))
+        db = database_worker("my_application.db")
+        query = f"Select * from record where user_id={x} ORDER BY record.date1 DESC"
+        data = db.search(query)
+        print(data)
+        db.close()
+        self.data_table.update_row_data(None, data)
+
+    def recordgame(self):
+        self.parent.current = "RecordScreen"
+```
+**Fig x** This shows my home screen python code. For each screen in my project, each of them has their own class to help seperate them and organize the code. Additionally, in each class there are various functions connnected to buttons and inputs in the GUI. This enables the user to do the actions such as inputing data, going to the next page etc. 
+
+##Encryption
+Encryption is when a string of characters is converted to a code to make it more secure and prevent unathorized access to it. This is very important to protect the security of the application and to make sure that the users passwords are not compromised 
+```.py
+
+
 
 
