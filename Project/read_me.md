@@ -99,17 +99,98 @@ I will design and make a mobile app for a client who is very invested in footbal
 | Python                     | Encryption                      |                |
 | KivyMD                     | if statements                   |                |
 
+
+## Add game function
+
+```.py
+class RecordScreen(MDScreen):
+    id_game = None
+    def submit(self):
+        name = self.ids.Teamname1.text
+        name1 = self.ids.Teamname2.text
+        score1 = self.ids.Score1.text
+        score2 = self.ids.Score2.text
+        location = self.ids.Location.text
+        time = ""
+        id = self.id_game
+        if 2000<int(self.ids.year.text)<2024:
+            time += self.ids.year.text
+            if 0<int(self.ids.month.text) < 13:
+                time += self.ids.month.text
+                if int(self.ids.month.text) == 1 or 3 or 5 or 7 or 8 or 10 or 12:
+                    if int(self.ids.day.text) > 31:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        db = database_worker("my_application.db")
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+                elif int(self.ids.month.text) == 4 or 6 or 9 or 11:
+                    if int(self.ids.day.text) > 30:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        db = database_worker("my_application.db")
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+                elif int(self.ids.month.text) == 2:
+                    if int(self.ids.day.text) > 28:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        db = database_worker("my_application.db")
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+            else:
+                self.ids.month.error = True
+        else:
+            self.ids.year.error = True
+```
+**Fig x** This shows the function for adding user inputs to the database. 
+
+The user first inputs the information into different text boxes in the GUI then presses the submit button. When the submit button is pressed it calls this function. It first gets the user data through each text box, referencing their ids to get the information. Then the information is checked to make sure it is not empty (in another function). After this the date is validated. 
+
+The date validation for this example unfortunately looks very messy and is not very well written. As I wasn't sure how to do it as I haven't researched enough about the datetime library to see if there were any ways of validating it there. Therefore, I just made the validation into a bunch of if statements that enable me to check. Unfortunately the byproduct of this it is very long as multiple if statememts are needed to validate it. 
+
+## Create table 
+```.py
+def on_pre_enter(self, *args):
+# before the screen is created this code is run
+self.data_table = MDDataTable(
+    size_hint=(.8, .5),
+    pos_hint={"center_x": .5, "center_y": .5},
+    use_pagination=True,
+    check=True,
+    # title of the table
+    column_data=[("Home team name ", 80),
+            ("Away team name", 60),
+            ("Home_score", 40),
+            ("Away_score", 40),
+            ("Location", 60),
+            ("date1", 30),
+            ("ID", 30),
+            ("ID", 30)
+            ]
+        )
+    # add the functions for events of the mouse
+    #self.data_table.bind(on_row_press=self.row_pressed)
+    self.data_table.bind(on_check_press=self.check_pressed)
+    self.add_widget(self.data_table)
+    self.update()
+```
+
+
 ##  Decomposition
-In this project, when I was presented with a big problem, I split it into multiple smaller and more manageable actions. An example of this was getting the page for the user inputs. I first created the GUI based on my wireframe diagram that enabled me to know what inputs were needed. Then I made the database for the record by adding a table to the existing database so that all of the data would stay in the same database for simplicity. After making the database, I made sure that the inputs were all aligned and were correct and creating the function to update the database with the new user inputs. Then, I made sure to validate all the inputs that the user was inputting. The final action was uploading it onto the application, putting it on the home screen in chronological order in the form of a table then I was finished with this problem. 
-
-## Pattern generalization and abstraction
-
-
-## Algorithm design
-
-
-
-
+In this project, when I was presented with a big problem, I split it into multiple smaller and more manageable actions. An example of this was getting the page for the user inputs. I first created the GUI based on my wireframe diagram that enabled me to know what inputs were needed. Then I made the database for the record by adding a table to the existing database so that all of the data would stay in the same database for simplicity. After making the database, I made sure that the inputs were all aligned and were correct and creating the function to update the database with the new user inputs. Then, I made sure to validate all the inputs that the user was inputting. The final action was uploading it onto the application, putting it on the home screen in chronological order in the form of a table then I was finished with this problem.
 
 ## ORM
 Object relational mappping enables the application to access the database and get information from it. This enables the data to be used in the OOP 
