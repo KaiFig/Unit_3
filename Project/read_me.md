@@ -99,6 +99,18 @@ I will design and make a mobile app for a client who is very invested in footbal
 | Python                     | Encryption                      |                |
 | KivyMD                     | if statements                   |                |
 
+##  Decomposition
+In this project, when I was presented with a big problem, I split it into multiple smaller and more manageable actions. An example of this was getting the page for the user inputs. I first created the GUI based on my wireframe diagram that enabled me to know what inputs were needed. Then I made the database for the record by adding a table to the existing database so that all of the data would stay in the same database for simplicity. After making the database, I made sure that the inputs were all aligned and were correct and creating the function to update the database with the new user inputs. Then, I made sure to validate all the inputs that the user was inputting. The final action was uploading it onto the application, putting it on the home screen in chronological order in the form of a table then I was finished with this problem. 
+
+## Pattern generalization and abstraction
+
+
+## Algorithm design
+
+
+
+
+
 ## ORM
 Object relational mappping enables the application to access the database and get information from it. This enables the data to be used in the OOP 
 ```.py
@@ -306,5 +318,44 @@ self.data_table.update_row_data(None, data)
 ```
 **Fig x** This is part of the main python code for the home screen which enables the user to see all the games that the user has recorded in chronological order. The use of the datetime library makes it much easier and simpler to display the games in chronological order which is good coding practice
 
+## Relational databases
+Databases enable the user to save data and inputs that they have.
+```.py
+query = f""" CREATE Table if not exists users(
+    id INTEGER PRIMARY KEY,
+    email text NOT NULL unique,
+    password text NOT NULL,
+    username text not null
+)
+"""
+db = database_worker("my_application.db")
+db.run_save(query)
 
+create = """CREATE TABLE if not exists record(
+    hometeamname text NOT NULL,
+    awayteamname text NOT NULL,
+    home_score INTEGER NOT NULL,
+    away_score INTEGER not null,
+    location text NOT NULL,
+    date1 text NOT NULL,
+    user_id INTEGER,
+    game_id INTEGER Primary key
+   )"""
+
+db.run_save(create)
+
+
+query = f""" CREATE TABLE if not exists timeline(
+    action1 text NOT NULL,
+    teamname text NOT NULL,
+    time1 INTEGER,
+    player text NOT NULL,
+    game_id INTEGER
+    )"""
+
+db.run_save(query)
+
+db.close()
+```
+**Fig x** This shows part of my main python file that creates the databases and tables. Having this code in the main python enables the distribituion of the code. When it is distributed, the databases are still able to be created. 
 
