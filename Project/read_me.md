@@ -1,6 +1,7 @@
 
 # Unit 3 project
 ![Title picture](https://github.com/KaiFig/Unit_3/blob/main/Project/football_pic_project_3.webp)
+**Fig 1** This is the title picture and it is the main picture in my application
 
 
 # Criteria A: Planning
@@ -36,23 +37,23 @@ I will design and make a mobile app for a client who is very invested in footbal
 
 ## System diagram
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/Project3_system_diagram.jpg)
-**Fig x** This shows the system diagram which shows the different applications used in creating the app and the input and output of it
+**Fig 2** This shows the system diagram which shows the different applications used in creating the app and the input and output of it
 ##ER diagram
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/ER_diagram.jpg)
-**Fig x** This shows the ER diagram which showcases the projects databases and the relationships between the different tables of it 
+**Fig 3** This shows the ER diagram which showcases the projects databases and the relationships between the different tables of it 
 ##UML diagram
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/UML_diagram.jpg)
-**Fig x** This shows the UML diagram for the application. It shows each page and the functions that they have and how it inherits from the parent classes 
+**Fig 4** This shows the UML diagram for the application. It shows each page and the functions that they have and how it inherits from the parent classes 
 ##Wireframe diagram 
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/wireframe_diagram.jpg)
-**Fig x** This shows the wireframe diagram for the application. It was a basic sketch at the beginnning of the project to show how each page was going to look to form a plan for the project 
+**Fig 5** This shows the wireframe diagram for the application. It was a basic sketch at the beginnning of the project to show how each page was going to look to form a plan for the project 
 ##Flowcharts 
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_1.jpg)
-**Fig x** This is the first flowchart which shows the function for making sure the text inputs are not empty. This is important so that the user inputs all the data and doesn't forget about it
+**Fig 6** This is the first flowchart which shows the function for making sure the text inputs are not empty. This is important so that the user inputs all the data and doesn't forget about it
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_2.jpg)
-**Fig x** This shows the login page in the application. It takes the user inputs and checks them with the database called "my_application", specifically the table "users". This enables me to check if the user is legitimate and it also allows me to check the password with the hash to improve security 
+**Fig 7** This shows the login page in the application. It takes the user inputs and checks them with the database called "my_application", specifically the table "users". This enables me to check if the user is legitimate and it also allows me to check the password with the hash to improve security 
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/Flowchart_3.jpg)
-**Fig x** This shows the registration page in the application, specifically the function that is called when the button to submit the input is pressed. It saves the inputs to the database and it also makes sure that the password is more than the minimum length
+**Fig 8** This shows the registration page in the application, specifically the function that is called when the button to submit the input is pressed. It saves the inputs to the database and it also makes sure that the password is more than the minimum length
 
 
 ## Record of tasks
@@ -170,7 +171,7 @@ class RecordScreen(MDScreen):
         else:
             self.ids.year.error = True
 ```
-**Fig x** This shows the function for adding user inputs to the database. 
+**Fig 9** This shows the function for adding user inputs to the database. 
 
 The user first inputs the information into different text boxes in the GUI then presses the submit button. When the submit button is pressed it calls this function. It first gets the user data through each text box, referencing their ids to get the information. Then the information is checked to make sure it is not empty (in another function). After this the date is validated. 
 
@@ -185,7 +186,7 @@ from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.screen import MDScreen
 from hash_password import encrpyt_password, check_password
 ```
-**Fig x** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 is an SQL library which enables me to call the database. This enables me to get the data saved which is of utmost importance to fulfill the success critieria. The datetime library helps me order everything in chronological order which is one of my success criteria and is an example of pattern recognition. Before, I would've manually done the chronological ordering, however, with the datetime library, I am able to just use one thing across multiple places in my code. The kivymd libraries downloaded are for the main kivy file. They enable me to actually show the user interface with the tables displaying the database. Lastly, from another file, I call 2 functions which help me with the login and registration parts of the application. This shows decomposition, I was faced with a large problem and to solve it, I split into smaller actions, one of them being in the login and registration parts of the application where to simplify things I just called another function.
+**Fig 10** To set up the file, I first inputed multiple libraries to help me with my project. sqlite3 is an SQL library which enables me to call the database. This enables me to get the data saved which is of utmost importance to fulfill the success critieria. The datetime library helps me order everything in chronological order which is one of my success criteria and is an example of pattern recognition. Before, I would've manually done the chronological ordering, however, with the datetime library, I am able to just use one thing across multiple places in my code. The kivymd libraries downloaded are for the main kivy file. They enable me to actually show the user interface with the tables displaying the database. Lastly, from another file, I call 2 functions which help me with the login and registration parts of the application. This shows decomposition, I was faced with a large problem and to solve it, I split into smaller actions, one of them being in the login and registration parts of the application where to simplify things I just called another function.
 
 ##Recording goals
 ```.py
@@ -210,7 +211,7 @@ def submit(self):
     else:
         self.ids.teamname.error = True
 ```
-**Fig x** This is the code for adding goals to the timeline database. First it gets the teamname from the user input by calling the kivy text box. Then from the record, it selects the hometeamname and awayteamname from the record database. After this, I check the teamname to make sure that it is either the away or the home team names and if it isn't the error shows up. IF it is then I get the rest of the user inputs from the kivy file and insert it into the database. All the tables in the database have the same user_id which makes sure that multiple users can use this application but only their data will show. 
+**Fig 11** This is the code for adding goals to the timeline database. First it gets the teamname from the user input by calling the kivy text box. Then from the record, it selects the hometeamname and awayteamname from the record database. After this, I check the teamname to make sure that it is either the away or the home team names and if it isn't the error shows up. IF it is then I get the rest of the user inputs from the kivy file and insert it into the database. All the tables in the database have the same user_id which makes sure that multiple users can use this application but only their data will show. 
 
 For this piece of code, I have used the computational thinking skill algorithim design to create a function to receive user inputs and validate them. I have also used decomposition in this scenario. I first got the inputs, then thought about inserting them into the database. After that was working I worked on the validation which shows how I broke this down into two smaller steps. 
 
@@ -221,7 +222,7 @@ class database_worker:
         self.connection = sqlite3.connect(name)
         self.cursor = self.connection.cursor()
 ```
-**Fig x** This class was created so I could form an SQL query to access the database of my application. The use of this class enables me to easily create an SQL query as the only hting I need to put is the name of the application. Then, with the functions in the class, I am able to search, save and close the connection. This is an example of pattern recognition. Querying the database is something that I have to do over and over again and the use of the database worker class enables me to create a general function that I can use every time, greatly simplifying the code. Additionally, this class takes the database name and uses a cursor to interact with the database. Therefore, this is an example of abstraction as the only thing that the developer has to do is just list the name and this class will do the work connecting to the database. 
+**Fig 11** This class was created so I could form an SQL query to access the database of my application. The use of this class enables me to easily create an SQL query as the only hting I need to put is the name of the application. Then, with the functions in the class, I am able to search, save and close the connection. This is an example of pattern recognition. Querying the database is something that I have to do over and over again and the use of the database worker class enables me to create a general function that I can use every time, greatly simplifying the code. Additionally, this class takes the database name and uses a cursor to interact with the database. Therefore, this is an example of abstraction as the only thing that the developer has to do is just list the name and this class will do the work connecting to the database. 
 
 ## Create table 
 ```.py
@@ -249,7 +250,7 @@ def on_pre_enter(self, *args):
     self.add_widget(self.data_table)
     self.update()
 ```
-**Fig x** This function creates the table for the home screen. This connects to the kivy MD file as it displays a table on the user interface with the data from the database. Additionally, it has checkboxes which when pressed are taken to another function which opens up the detail screen for each game. This fulfills multiple success critieria as it also is able to be listed in chronological order when the data is queryed from the database. 
+**Fig 11** This function creates the table for the home screen. This connects to the kivy MD file as it displays a table on the user interface with the data from the database. Additionally, it has checkboxes which when pressed are taken to another function which opens up the detail screen for each game. This fulfills multiple success critieria as it also is able to be listed in chronological order when the data is queryed from the database. 
 
 
 ##  Decomposition
@@ -264,7 +265,7 @@ query = f"SELECT * from record WHERE game_id = '{x}'"
 result = db.search(query=query)
 hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
 ```
-**Fig x** The code above shows the code for my home sceen. On my home screen, there is a table, showcasing the record table in the "my_application.db" database. To get the data from the database, I use the query variable and the result which calls on a function in the class database worker in the main python file. The use of SQL commands enables me to get the data very easily from the database and showcase it, showing the user all the data they have saved in the record database. 
+**Fig 12** The code above shows the code for my home sceen. On my home screen, there is a table, showcasing the record table in the "my_application.db" database. To get the data from the database, I use the query variable and the result which calls on a function in the class database worker in the main python file. The use of SQL commands enables me to get the data very easily from the database and showcase it, showing the user all the data they have saved in the record database. 
 
 ## OOP structures
 OOP or object-orientated programing is when the code is structured around objects instead of regular coding practices. Each object represents an action or object with properties. It uses classes and each class has different functions to do different actions. Also it is possible to inherit from class to class, increasing simplicity and reducing redunancies in the code
@@ -318,7 +319,7 @@ class HomeScreen(MDScreen):
     def recordgame(self):
         self.parent.current = "RecordScreen"
 ```
-**Fig x** This shows my home screen python code. For each screen in my project, each of them has their own class to help seperate them and organize the code. Additionally, in each class there are various functions connnected to buttons and inputs in the GUI. This enables the user to do the actions such as inputing data, going to the next page etc. 
+**Fig 13** This shows my home screen python code. For each screen in my project, each of them has their own class to help seperate them and organize the code. Additionally, in each class there are various functions connnected to buttons and inputs in the GUI. This enables the user to do the actions such as inputing data, going to the next page etc. 
 
 ## Encryption
 Encryption is when a string of characters is converted to a code to make it more secure and prevent unathorized access to it. This is very important to protect the security of the application and to make sure that the users passwords are not compromised 
@@ -335,7 +336,7 @@ def check_password(hashed_password, user_password):
     return hasher.verify(user_password, hashed_password)
 
 ```
-**Fig x** This is a seperate file that hashes the password and also verifies it
+**Fig 14** This is a seperate file that hashes the password and also verifies it
 ```.py
 from hash_password import encrpyt_password, check_password
 
@@ -345,7 +346,7 @@ query = f"INSERT into users (email, password, username) values('{email}','{hash}
 db.run_save(query)
 db.close()
 ```
-**Fig x** This is from my main python file, during the signup, the user inputs their new password and verifies it, then it calls the function which was imported at the top of the file. This enables the users passwords to be encrypted and protected
+**Fig 15** This is from my main python file, during the signup, the user inputs their new password and verifies it, then it calls the function which was imported at the top of the file. This enables the users passwords to be encrypted and protected
 
 ## Kivy MD
 KivyMD ws the software tool that we used to create the GUI that the user will interact with. This is important as the user therefore doesn't see all of the code and instead only sees the interface.
@@ -407,7 +408,7 @@ KivyMD ws the software tool that we used to create the GUI that the user will in
             size_hint_y: None
             height: 100
 ```
-**Fig x**This is an example of my kivymd file. 
+**Fig 16**This is an example of my kivymd file. 
 ```.py
 class DetailsScreen(MDScreen):
     id_game=None
@@ -439,7 +440,7 @@ class DetailsScreen(MDScreen):
         self.add_widget(self.data_table)
         self.update()
 ```
-**Fig x** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
+**Fig 17** This is an example of a function in my main python file which sends commands to the kivy file to change the interface.
 KivyMD enables the developer to create the interface that the user interacts. This interface enables the user to write certain inputs and also maneuver around the app to access other functions of the app. The use of python expands the potential to change and adapt the GUI. For example, the above python code enables the user to have a new table that is updated every time they go to that page. If we were only limited to hte kivy file, we would not be able to adapt the interface that the user interacts with.
 
 ## MDTextField
@@ -455,7 +456,7 @@ helper_text: "Login incorrect"
 on_text: root.userid_empty()
 required: False
 ```
-**Fig x** This specific text input allows the user to enter their username or their email to login into the application. There is also a function attached to it with the "on_text" piece of code. This enables the kivy file to be connected to the python file and run functions which enable the GUI to be adapted and edited.
+**Fig 18** This specific text input allows the user to enter their username or their email to login into the application. There is also a function attached to it with the "on_text" piece of code. This enables the kivy file to be connected to the python file and run functions which enable the GUI to be adapted and edited.
 
 ## MDRaisedButton
 These allow functions to be called and actions to be done
@@ -467,7 +468,7 @@ on_press: root.try_register()
 size_hint: .3, 1
 md_bg_color: "#e63946"
 ```
-**Fig x** This specific button is in my main kivy file. It enables the user to press it and move to a different page by calling a function in the main python file
+**Fig 19** This specific button is in my main kivy file. It enables the user to press it and move to a different page by calling a function in the main python file
 
 ## Datetime library 
 The Datetime library enables the developer to format all the data that the user inputs into one form and able to call it in chronological order which is one of the success critieria
@@ -478,7 +479,7 @@ query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score
 db.run_save(query)
 db.close()
 ```
-**Fig x** This is part of the main python code which enables the user to input the date for each game that they watch. The dates are made into datetime format by the datetime.datetime command
+**Fig 20** This is part of the main python code which enables the user to input the date for each game that they watch. The dates are made into datetime format by the datetime.datetime command
 ```.py
 x = self.id_game
 db = database_worker("my_application.db")
@@ -487,7 +488,7 @@ data = db.search(query)
 db.close()
 self.data_table.update_row_data(None, data)
 ```
-**Fig x** This is part of the main python code for the home screen which enables the user to see all the games that the user has recorded in chronological order. The use of the datetime library makes it much easier and simpler to display the games in chronological order which is good coding practice
+**Fig 21** This is part of the main python code for the home screen which enables the user to see all the games that the user has recorded in chronological order. The use of the datetime library makes it much easier and simpler to display the games in chronological order which is good coding practice
 
 ## Relational databases
 Databases enable the user to save data and inputs that they have.
@@ -528,18 +529,22 @@ db.run_save(query)
 
 db.close()
 ```
-**Fig x** This shows part of my main python file that creates the databases and tables. Having this code in the main python enables the distribituion of the code. When it is distributed, the databases are still able to be created. 
+**Fig 22** This shows part of my main python file that creates the databases and tables. Having this code in the main python enables the distribituion of the code. When it is distributed, the databases are still able to be created. 
 
 # Criteria D: Functionality 
 
+## Demonstration video 
+https://drive.google.com/drive/folders/1Aa-nwUP6wcilUtq9B-dB70pj9rHy01Uv?usp=sharing
+
+This is the link to my google drive file with the video.
 
 
 # Appendix 
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/1st_meeting.jpg)
-**Fig x** This is the notes that I had from my first meeting with my client where I was able to figure out what he wanted
+**Fig 23** This is the notes that I had from my first meeting with my client where I was able to figure out what he wanted
 
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_1.jpg)
-**Fig x** This is the original contract for my project 3 that was signed by me and my client
+**Fig 24** This is the original contract for my project 3 that was signed by me and my client
 
 ## Citations
 [^1]: Appropriate Uses for SQLite, https://www.sqlite.org/whentouse.html#:~:text=The%20advantage%20of%20SQLite%20is,or%20emailed%20to%20a%20colleague.&amp;text=Many%20applications%20use%20SQLite%20as,content%20from%20an%20enterprise%20RDBMS. 
@@ -549,5 +554,3 @@ db.close()
 [^5]: “SQLITE3 - DB-API 2.0 Interface for SQLite Databases.” Python Documentation, https://docs.python.org/3/library/sqlite3.html. 
 [^6]: “Top 10 Reasons Why Python Is so Popular with Developers in 2023.” UpGrad Blog, 23 Nov. 2022, https://www.upgrad.com/blog/reasons-why-python-popular-with-developers/#:~:text=The%20python%20language%20is%20one,faster%20than%20other%20programming%20languages. 
 [^7]: “Why Is Python so Popular?” Pulumi, https://www.pulumi.com/why-is-python-so-popular/. 
-[^7]: 
-[^8]:
