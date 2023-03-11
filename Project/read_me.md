@@ -8,9 +8,10 @@
 ## Problem definition
 My client is an ISAK student who enjoys watching and playing footabll a lot. However, after he watches the game, he has no way of keeping a track record of it and it is tedious to have to look up the scores online. Additionally, the sources online do not hold all of the football matches he watches as he watches local teams that are not found on the internet.  
 
-## Rationale for Proposed Solution
+## Proposed solution
 My proposed solution is to create a mobile app that enables my client to record these details by themselves. As it is saved on the app, the client would not have to look the games up using the internet. Additonally, the client will be able to record all the games that he wants, even those that are not found on the internet. This will enable the client to upload their own scores, with no reliance on internet sources, to produce the record that he wants. 
 
+## Rationale for proposed solution
 I will be using python as the primary coding language for a variety of reasons. First of all, it is a very flexible coding language and I can reuse some code that we have already made as it is very versatile [^2]. Additionally, it has a wide range of libraries that can be used to fulfill the clients needs on the project[^6]. The final reason is that this is the only coding language that I am good at and it is very easy to learn as it has a very simple syntax[^7]. Using it will speed up the process much more compared to having to learn another language. 
 
 For the GUI design, I will be using KivyMD. In the project I will be using it to act as the interface between the user and the actual software. The user will be able to send inputs through their keyboard and alter information on the actual application and the databases available to the user. KIVYMD is coded in python which is beneficial to this project as it is also in python and it is very simple to use [^3]. This is of utmost importance in this project as without it, the user will not be able to look at the football match log.
@@ -31,7 +32,7 @@ I will design and make a mobile app for a client who is very invested in footbal
 6. The aapplication enables the user to record each goal and substitution in real-time
 
 
-# Criteria B: 
+# Criteria B: Design
 
 ## System diagram
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/Project3_system_diagram.jpg)
@@ -191,17 +192,16 @@ from hash_password import encrpyt_password, check_password
 def submit(self):
     teamname = self.ids.teamname.text
     x = self.id_game
-    action = "Goal"
-    query = f"SELECT hometeamname from record WHERE game_id = '{x}'"
+    query = f"SELECT * from record WHERE game_id = '{x}'"
     db = database_worker("my_application.db")
     result = db.search(query=query)
-    query2 = f"SELECT awayteamname from record WHERE game_id = '{x}'"
-    result2 = db.search(query=query2)
-    db.close()
-    if teamname == result or teamname == result2:
+    hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+    print("result", result, "result2", result,"result1")
+    if teamname == hometeamname or teamname == awayteamname:
         time = self.ids.time.text
         player = self.ids.player.text
         player2 = f"{player} scored"
+        action = "Goal"
         db = database_worker("my_application.db")
         gamerecord = f"INSERT into timeline (action1, teamname, time1, player, game_id) values('{action}','{teamname}', '{time}', '{player2}','{x}')"
         db.run_save(gamerecord)
@@ -210,7 +210,7 @@ def submit(self):
     else:
         self.ids.teamname.error = True
 ```
-**Fig x** This is the code for adding goals to the timeline database. First it gets the teamname from the user input by calling the kivy text box. Then from the record, it selects the hometeamname and awayteamname from the record database. Looking back at the code, it would've been easier to write it as one query and seperate it, however, I made two queries which makes it slightly redundant and complex. However, the code still works. After this, I check the teamname to make sure that it is either the away or the home team names and if it isn't the error shows up. IF it is then I get the rest of the user inputs from the kivy file and insert it into the database. All the tables in the database have the same user_id which makes sure that multiple users can use this application but only their data will show. 
+**Fig x** This is the code for adding goals to the timeline database. First it gets the teamname from the user input by calling the kivy text box. Then from the record, it selects the hometeamname and awayteamname from the record database. After this, I check the teamname to make sure that it is either the away or the home team names and if it isn't the error shows up. IF it is then I get the rest of the user inputs from the kivy file and insert it into the database. All the tables in the database have the same user_id which makes sure that multiple users can use this application but only their data will show. 
 
 For this piece of code, I have used the computational thinking skill algorithim design to create a function to receive user inputs and validate them. I have also used decomposition in this scenario. I first got the inputs, then thought about inserting them into the database. After that was working I worked on the validation which shows how I broke this down into two smaller steps. 
 
@@ -530,6 +530,7 @@ db.close()
 ```
 **Fig x** This shows part of my main python file that creates the databases and tables. Having this code in the main python enables the distribituion of the code. When it is distributed, the databases are still able to be created. 
 
+# Criteria D: Functionality 
 
 
 
