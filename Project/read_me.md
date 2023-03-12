@@ -546,6 +546,9 @@ This is the link to my google drive file with the video.
 ![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_1.jpg)
 **Fig 24** This is the original contract for my project 3 that was signed by me and my client
 
+![](https://github.com/KaiFig/Unit_3/blob/main/Project/contract_2.jpg)
+**Fig 25** This is the revised contract for my project 3 signed by me and my client 
+
 ## Citations
 [^1]: Appropriate Uses for SQLite, https://www.sqlite.org/whentouse.html#:~:text=The%20advantage%20of%20SQLite%20is,or%20emailed%20to%20a%20colleague.&amp;text=Many%20applications%20use%20SQLite%20as,content%20from%20an%20enterprise%20RDBMS. 
 [^2]:Jalli, Artturi. “9 Reasons Why Python Is so Popular in 2023.” Codingem.com, 13 Dec. 2022, https://www.codingem.com/why-is-python-so-popular/. 
@@ -554,3 +557,976 @@ This is the link to my google drive file with the video.
 [^5]: “SQLITE3 - DB-API 2.0 Interface for SQLite Databases.” Python Documentation, https://docs.python.org/3/library/sqlite3.html. 
 [^6]: “Top 10 Reasons Why Python Is so Popular with Developers in 2023.” UpGrad Blog, 23 Nov. 2022, https://www.upgrad.com/blog/reasons-why-python-popular-with-developers/#:~:text=The%20python%20language%20is%20one,faster%20than%20other%20programming%20languages. 
 [^7]: “Why Is Python so Popular?” Pulumi, https://www.pulumi.com/why-is-python-so-popular/. 
+
+
+```.py
+import sqlite3
+import datetime
+from kivymd.app import MDApp
+from kivymd.uix.datatables import MDDataTable
+from kivymd.uix.screen import MDScreen
+from hash_password import encrpyt_password, check_password
+
+
+
+class database_worker:
+    def __init__(self, name):
+        self.connection = sqlite3.connect(name)
+        self.cursor = self.connection.cursor()
+
+    def search(self, query):
+        result = self.cursor.execute(query).fetchall()
+        return result
+
+    def run_save(self, query):
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    def close(self):
+        self.connection.close()
+
+query = f""" CREATE Table if not exists users(
+    id INTEGER PRIMARY KEY,
+    email text NOT NULL unique,
+    password text NOT NULL,
+    username text not null
+)
+"""
+db = database_worker("my_application.db")
+db.run_save(query)
+
+create = """CREATE TABLE if not exists record(
+    hometeamname text NOT NULL,
+    awayteamname text NOT NULL,
+    home_score INTEGER NOT NULL,
+    away_score INTEGER not null,
+    location text NOT NULL,
+    date1 text NOT NULL,
+    user_id INTEGER,
+    game_id INTEGER Primary key
+   )"""
+
+"""Select * from record JOIN users ON record.user_id=users.id where user.id=2"""
+db.run_save(create)
+
+
+query = f""" CREATE TABLE if not exists timeline(
+    action1 text NOT NULL,
+    teamname text NOT NULL,
+    time1 INTEGER,
+    player text NOT NULL,
+    game_id INTEGER
+    )"""
+
+db.run_save(query)
+
+db.close()
+
+class HomeScreen(MDScreen):
+    data_table = None
+    id_game = None
+    def on_pre_enter(self, *args):
+        # before the screen is created this code is run
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=True,
+            check=True,
+            # title of the table
+            column_data=[("Home team name ", 80),
+                         ("Away team name", 60),
+                         ("Home_score", 40),
+                         ("Away_score", 40),
+                         ("Location", 60),
+                         ("date1", 30),
+                         ("ID", 30),
+                         ("ID", 30)
+                         ]
+        )
+        # add the functions for events of the mouse
+        #self.data_table.bind(on_row_press=self.row_pressed)
+        self.data_table.bind(on_check_press=self.check_pressed)
+        self.add_widget(self.data_table)
+        self.update()
+
+    def check_pressed(self, table, row):
+        print("here", row)
+        DetailsScreen.id_game = row[7]
+        RecordPScreen.id_game = row[7]
+        RecordSubScreen.id_game = row[7]
+        self.parent.current = "DetailsScreen"
+        db.close()
+
+    def update(self):
+        x = self.id_game
+        db = database_worker("my_application.db")
+        query = f"Select * from record where user_id={x} ORDER BY record.date1 DESC"
+        data = db.search(query)
+        db.close()
+        self.data_table.update_row_data(None, data)
+
+    def recordgame(self):
+        self.parent.current = "RecordScreen"
+
+
+class LoginScreen(MDScreen):
+    def userid_empty(self):
+        input1 = self.ids.uname.text
+        if input1 == "":
+            self.ids.uname.helper_text_mode = "on_error"
+            self.ids.uname.helper_text = "Username is required"
+            self.ids.uname.required = True
+    def passwd_empty(self):
+        input1 = self.ids.passwd.text
+        if input1 == "":
+            self.ids.passwd.helper_text_mode = "on_error"
+            self.ids.passwd.required = True
+            self.ids.passwd.helper_text = "Password is required"
+
+    def try_login(self):
+        uname = self.ids.uname.text
+        passwd = self.ids.passwd.text
+        query = f"SELECT * from users WHERE username = '{uname}'"
+        db = database_worker("my_application.db")
+        result = db.search(query=query)
+        db.close()
+        if len(result) == 1:
+            id, email, hashed, uname = result[0]
+            if check_password(user_password=passwd, hashed_password=hashed):
+                HomeScreen.id_game = id
+                RecordScreen.id_game = id
+                self.parent.current = "HomeScreen"
+            else:
+                self.ids.passwd.error = True
+                self.ids.passwd.helper_text = "Password is incorrect"
+        else:
+            self.ids.uname.error = True
+            self.ids.uname.helper_text = "Username is incorrect"
+            self.ids.passwd.error = True
+            self.ids.passwd.helper_text = "Password is incorrect"
+
+    def try_register(self):
+        print("User trying to register")
+        self.ids.uname.text = ""
+        self.ids.passwd.text = ""
+        self.ids.passwd.error = False
+        self.ids.uname.error = False
+        self.ids.uname.required = False
+        self.ids.passwd.required = False
+        self.parent.current = "SignupScreen"
+
+class SignupScreen(MDScreen):
+    def userid_empty(self):
+        input1 = self.ids.uname.text
+        if input1 == "":
+            self.ids.uname.helper_text_mode = "on_error"
+            self.ids.uname.helper_text = "Username is required"
+            self.ids.uname.required = True
+    def email_empty(self):
+        input1 = self.ids.emails.text
+        if input1 == "":
+            self.ids.emails.helper_text_mode = "on_error"
+            self.ids.emails.helper_text = "Email is required"
+            self.ids.emails.required = True
+    def passwd_empty(self):
+        input1 = self.ids.passwd.text
+        if input1 == "":
+            self.ids.passwd.helper_text_mode = "on_error"
+            self.ids.passwd.helper_text = "Passwd is required"
+            self.ids.passwd.required = True
+    def passwd2_empty(self):
+        input1 = self.ids.passwd2.text
+        if input1 == "":
+            self.ids.passwd2.helper_text_mode = "on_error"
+            self.ids.passwd2.helper_text = "Passwd confirmation is required"
+            self.ids.passwd2.required = True
+    def try_register(self):
+        uname = self.ids.uname.text
+        email = self.ids.emails.text
+        passwd = self.ids.passwd.text
+        passwd2 = self.ids.passwd2.text
+        if len(passwd) > 10:
+            if passwd != passwd2:
+                self.ids.passwd.error = True
+                self.ids.passwd.helper_text = "Password does not match"
+                self.ids.passwd2.helper_text = "Password does not match"
+                self.ids.passwd2.error = True
+            else:
+                hash = encrpyt_password(passwd)
+                db = database_worker("my_application.db")
+                query = f"INSERT into users (email, password, username) values('{email}','{hash}','{uname}')"
+                db.run_save(query)
+                db.close()
+                print("Registration complete")
+                self.ids.passwd.text = ""
+                self.ids.uname.text = ""
+                self.ids.emails.text = ""
+                self.ids.passwd2.text = ""
+                self.parent.current = "LoginScreen"
+                self.ids.passwd.error = False
+                self.ids.passwd2.error = False
+                self.ids.uname.required = False
+                self.ids.emails.required = False
+                self.ids.passwd.required = False
+                self.ids.passwd.required = False
+
+        else:
+            self.ids.passwd.error = True
+            self.ids.passwd.helper_text = "Password needs to be more than 10 characters"
+            self.ids.passwd2.error = True
+            self.ids.passwd2.helper_text = "Password needs to be more than 10 characters"
+
+    def cancel(self):
+        self.ids.passwd.text = ""
+        self.ids.passwd2.text = ""
+        self.ids.uname.text = ""
+        self.ids.emails.text = ""
+        self.parent.current = "LoginScreen"
+        self.ids.passwd.error = False
+        self.ids.passwd2.error = False
+        self.ids.uname.required = False
+        self.ids.emails.required = False
+        self.ids.passwd.required = False
+        self.ids.passwd.required = False
+
+
+class RecordScreen(MDScreen):
+    id_game = None
+    def submit(self):
+        name = self.ids.Teamname1.text
+        name1 = self.ids.Teamname2.text
+        score1 = self.ids.Score1.text
+        score2 = self.ids.Score2.text
+        location = self.ids.Location.text
+        time = ""
+        id = self.id_game
+        if 2000<int(self.ids.year.text)<2024:
+            time += self.ids.year.text
+            if 0<int(self.ids.month.text) < 13:
+                time += self.ids.month.text
+                if int(self.ids.month.text) == 1 or 3 or 5 or 7 or 8 or 10 or 12:
+                    if int(self.ids.day.text) > 31:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        db = database_worker("my_application.db")
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+                        self.ids.month.text = ""
+                        self.ids.day.text = ""
+                        self.ids.year.text = ""
+                        self.ids.Location.text = ""
+                        self.ids.Score2.text = ""
+                        self.ids.Score1.text = ""
+                        self.ids.Teamname2.text = ""
+                        self.ids.Teamname1.text = ""
+                elif int(self.ids.month.text) == 4 or 6 or 9 or 11:
+                    if int(self.ids.day.text) > 30:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        db = database_worker("my_application.db")
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+                        self.ids.month.text = ""
+                        self.ids.day.text = ""
+                        self.ids.year.text = ""
+                        self.ids.Location.text = ""
+                        self.ids.Score2.text = ""
+                        self.ids.Score1.text = ""
+                        self.ids.Teamname2.text = ""
+                        self.ids.Teamname1.text = ""
+
+                elif int(self.ids.month.text) == 2:
+                    if int(self.ids.day.text) > 28:
+                        self.ids.day.error = True
+                    else:
+                        time += f"{self.ids.day.text}"
+                        x = datetime.datetime(int(self.ids.year.text), int(self.ids.month.text), int(self.ids.day.text))
+                        db = database_worker("my_application.db")
+                        query = f"INSERT into record (hometeamname, awayteamname, home_score, away_score, location, date1, user_id) values('{name}','{name1}','{score1}','{score2}','{location}','{x}', '{id}')"
+                        db.run_save(query)
+                        db.close()
+                        self.parent.current = "HomeScreen"
+                        self.ids.month.text = ""
+                        self.ids.day.text = ""
+                        self.ids.year.text = ""
+                        self.ids.Location.text = ""
+                        self.ids.Score2.text = ""
+                        self.ids.Score1.text = ""
+                        self.ids.Teamname2.text = ""
+                        self.ids.Teamname1.text = ""
+
+            else:
+                self.ids.month.error = True
+        else:
+            self.ids.year.error = True
+    def teamname1_empty(self):
+        input1 = self.ids.Teamname1.text
+        if input1 == "":
+            self.ids.Teamname1.helper_text_mode = "on_error"
+            self.ids.Teamname1.helper_text = "Team name is required"
+            self.ids.Teamname1.required = True
+    def teamname2_empty(self):
+        input1 = self.ids.Teamname2.text
+        if input1 == "":
+            self.ids.Teamname2.helper_text_mode = "on_error"
+            self.ids.Teamname2.helper_text = "Team name is required"
+            self.ids.Teamname2.required = True
+    def score1_empty(self):
+        input1 = self.ids.Score1.text
+        if input1 == "":
+            self.ids.Score1.helper_text_mode = "on_error"
+            self.ids.Score1.helper_text = "Score is required"
+            self.ids.Score1.required = True
+    def score2_empty(self):
+        input1 = self.ids.Score2.text
+        if input1 == "":
+            self.ids.Score2.helper_text_mode = "on_error"
+            self.ids.Score2.helper_text = "Score is required"
+            self.ids.Score2.required = True
+    def location_empty(self):
+        input1 = self.ids.Location.text
+        if input1 == "":
+            self.ids.Location.helper_text_mode = "on_error"
+            self.ids.Location.helper_text = "Location is required"
+            self.ids.Location.required = True
+    def day_empty(self):
+        input1 = self.ids.day.text
+        if input1 == "":
+            self.ids.day.helper_text_mode = "on_error"
+            self.ids.day.helper_text = "Day is required"
+            self.ids.day.required = True
+    def month_empty(self):
+        input1 = self.ids.month.text
+        if input1 == "":
+            self.ids.month.helper_text_mode = "on_error"
+            self.ids.month.helper_text = "Month is required"
+            self.ids.month.required = True
+    def year_empty(self):
+        input1 = self.ids.year.text
+        if input1 == "":
+            self.ids.year.helper_text_mode = "on_error"
+            self.ids.year.helper_text = "Year is required"
+            self.ids.year.required = True
+    def cancel(self):
+        self.parent.current = "HomeScreen"
+        self.ids.day.required = False
+        self.ids.year.required = False
+        self.Teamname1.required = False
+        self.Teamname2.required = False
+        self.Score1.required = False
+        self.Score2.required = False
+        self.Location.required = False
+        self.ids.month.text = ""
+        self.ids.day.text = ""
+        self.ids.year.text = ""
+        self.ids.Location.text = ""
+        self.ids.Score2.text = ""
+        self.ids.Score1.text = ""
+        self.ids.Teamname2.text = ""
+        self.ids.Teamname1.text = ""
+class DetailsScreen(MDScreen):
+    id_game=None
+    data_table = None
+    def on_pre_enter(self):
+        print("here2", self.id_game)
+        x = self.id_game
+        db = database_worker("my_application.db")
+        query = f"SELECT * from record WHERE game_id = '{x}'"
+        result = db.search(query=query)
+        hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+        self.ids.teams.text = f"{hometeamname} vs {awayteamname}"
+        self.ids.location.text = location
+        self.ids.date.text = date1
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=True,
+            # title of the table
+            column_data=[("Action", 45),
+                         ("Teamname", 40),
+                         ("Time", 20),
+                         ("Player", 100),
+                         ("game_id", 30)
+                         ]
+        )
+        # add the functions for events of the mouse
+        # self.data_table.bind(on_row_press=self.row_pressed)
+        self.add_widget(self.data_table)
+        self.update()
+
+
+    def back(self):
+        self.ids.teams.text = ""
+        self.ids.location.text = ""
+        self.ids.date.text = ""
+        self.parent.current = "HomeScreen"
+
+    def update(self):
+        x = self.id_game
+        print(f" this is id {x}")
+        db = database_worker("my_application.db")
+        query = f"Select * from timeline where game_id={x} ORDER BY time1 ASC"
+        data = db.search(query)
+        print(data)
+        db.close()
+        self.data_table.update_row_data(None, data)
+class RecordPScreen(MDScreen):
+    id_game = None
+    def teamname5_empty(self):
+        input1 = self.ids.teamname.text
+        if input1 == "":
+            self.ids.teamname.helper_text_mode = "on_error"
+            self.ids.teamname.helper_text = "Team name is required"
+            self.ids.teamname.required = True
+    def time_empty(self):
+        input1 = self.ids.time.text
+        if input1 == "":
+            self.ids.time.helper_text_mode = "on_error"
+            self.ids.time.helper_text = "Time is required"
+            self.ids.time.required = True
+    def player_empty(self):
+        input1 = self.ids.player.text
+        if input1 == "":
+            self.ids.player.helper_text_mode = "on_error"
+            self.ids.player.helper_text = "Player is required"
+            self.ids.player.required = True
+    def cancel(self):
+        self.ids.teamname.text = ""
+        self.ids.time.text = ""
+        self.ids.player.text = ""
+        self.parent.current = "DetailsScreen"
+
+    def submit(self):
+        teamname = self.ids.teamname.text
+        x = self.id_game
+        query = f"SELECT * from record WHERE game_id = '{x}'"
+        db = database_worker("my_application.db")
+        result = db.search(query=query)
+        hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+        print("result", result, "result2", result,"result1")
+        if teamname == hometeamname or teamname == awayteamname:
+            time = self.ids.time.text
+            player = self.ids.player.text
+            player2 = f"{player} scored"
+            action = "Goal"
+            db = database_worker("my_application.db")
+            gamerecord = f"INSERT into timeline (action1, teamname, time1, player, game_id) values('{action}','{teamname}', '{time}', '{player2}','{x}')"
+            db.run_save(gamerecord)
+            db.close()
+            self.parent.current = "DetailsScreen"
+            self.ids.teamname.required = False
+            self.ids.player.required = False
+            self.ids.time.required = False
+            self.ids.time.text = ""
+            self.ids.teamname.text = ""
+            self.ids.player.text = ""
+        else:
+            self.ids.teamname.error = True
+
+class RecordSubScreen(MDScreen):
+    id_game = None
+    def submit(self):
+        teamname = self.ids.teamname.text
+        x = self.id_game
+        query = f"SELECT * from record WHERE game_id = '{x}'"
+        db = database_worker("my_application.db")
+        result = db.search(query=query)
+        hometeamname, awayteamname, home_score, away_score, location, date1, user_id, game_id = result[0]
+        print("result", result, "result2", result,"result1")
+        if teamname == hometeamname or teamname == awayteamname:
+            time = self.ids.time.text
+            player1 = self.ids.player1.text
+            player2 = self.ids.player2.text
+            action = "Substitution"
+            substitute = f"{player2} was substituted out {player1} substituted in"
+            db = database_worker("my_application.db")
+            gamerecord = f"INSERT into timeline (action1, teamname, time1, player, game_id) values('{action}','{teamname}', '{time}', '{substitute}','{x}')"
+            db.run_save(gamerecord)
+            db.close()
+            self.parent.current = "DetailsScreen"
+            self.ids.teamname.required = False
+            self.ids.player1.required = False
+            self.ids.time.required = False
+            self.ids.player2.required = False
+            self.ids.time.text = ""
+            self.ids.teamname.text = ""
+            self.ids.player1.text = ""
+            self.ids.player2.text = ""
+        else:
+            self.ids.teamname.error = True
+    def teamname5_empty(self):
+        input1 = self.ids.teamname.text
+        if input1 == "":
+            self.ids.teamname.helper_text_mode = "on_error"
+            self.ids.teamname.helper_text = "Team name is required"
+            self.ids.teamname.required = True
+    def time_empty(self):
+        input1 = self.ids.time.text
+        if input1 == "":
+            self.ids.time.helper_text_mode = "on_error"
+            self.ids.time.helper_text = "Time is required"
+            self.ids.time.required = True
+    def player_empty(self):
+        input1 = self.ids.player1.text
+        if input1 == "":
+            self.ids.player1.helper_text_mode = "on_error"
+            self.ids.player1.helper_text = "Player is required"
+            self.ids.player1.required = True
+
+    def player2_empty(self):
+        input1 = self.ids.player2.text
+        if input1 == "":
+            self.ids.player2.helper_text_mode = "on_error"
+            self.ids.player2.helper_text = "Player is required"
+            self.ids.player2.required = True
+
+    def cancel(self):
+        self.ids.teamname.text = ""
+        self.ids.time.text = ""
+        self.ids.player1.text = ""
+        self.ids.player2.text = ""
+        self.parent.current = "DetailsScreen"
+        self.ids.teamname.required = False
+        self.ids.player1.required = False
+        self.ids.time.required = False
+        self.ids.player2.required = False
+
+
+class Project(MDApp):
+    def build(self):
+        return
+
+
+test = Project()
+
+test.run()
+```
+**Fig 26** This is the whole python file for my project 
+
+```.kv
+ScreenManager:
+    LoginScreen:
+        name: "LoginScreen"
+    SignupScreen:
+        name: "SignupScreen"
+    HomeScreen:
+        name: "HomeScreen"
+    RecordScreen:
+        name: "RecordScreen"
+    RecordPScreen:
+        name: "RecordPScreen"
+    RecordSubScreen:
+        name: "RecordSubScreen"
+    DetailsScreen:
+        name: "DetailsScreen"
+<LoginScreen>:
+    size: 500,500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .5, .9
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+        opacity: .7
+
+        MDLabel:
+            text: "Login"
+            font_size: 50
+            size_hint: 1, .2
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y":.5}
+        MDTextField:
+            id: uname
+            hint_text: "Enter your username or email"
+            icon_left: "email"
+            helper_text_mode: "on_error"
+            helper_text: "Login incorrect"
+            on_text: root.userid_empty()
+            required: False
+
+        MDTextField:
+            id: passwd
+            hint_text: "Enter password"
+            icon_left: "key"
+            password: True
+            helper_text_mode: "on_error"
+            helper_text: "Passswords does not match"
+            on_text: root.passwd_empty()
+            required: False
+        MDBoxLayout:
+            size_hint: 1, .1
+
+            MDRaisedButton:
+                id: login
+                text: "Login"
+                on_press: root.try_login()
+                size_hint: .3, 1
+                md_bg_color: "#fcbf49"
+            MDLabel:
+                size_hint: .3, 1
+            MDRaisedButton:
+                id: signup
+                text: "Signup"
+                on_press: root.try_register()
+                size_hint: .3, 1
+                md_bg_color: "#e63946"
+        Widget:
+            size_hint_y: None
+            height: 100
+
+<SignupScreen>:
+    size: 500,500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .8, .9
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+
+        MDLabel:
+            text: "Register"
+            font_style: "H3"
+            font_size: 20
+            size_hint: 1, .1
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y":.5}
+
+        MDTextField:
+            id: uname
+            hint_text: "Enter username"
+            helper_text_mode: "on_error"
+            helper_text: "Username is required"
+            on_text: root.userid_empty()
+            required: False
+
+
+        MDTextField:
+            id: emails
+            hint_text: "Enter email"
+            icon_left: "email"
+            helper_text_mode: "on_error"
+            on_text: root.email_empty()
+            required: False
+
+        MDTextField:
+            id: passwd
+            hint_text: "Enter password (more than 10 characters)"
+            icon_left: "key"
+            password: True
+            helper_text_mode: "on_error"
+            on_text: root.passwd_empty()
+            required: False
+        MDTextField:
+            id: passwd2
+            hint_text: "confirm password"
+            icon_left: "key"
+            password: True
+            helper_text_mode: "on_error"
+            helper_text: "Passsword does not match"
+            on_text: root.passwd2_empty()
+            required: False
+
+        MDBoxLayout:
+            size_hint: 1, .1
+
+            MDRaisedButton:
+                id: login
+                text: "Submit"
+                on_press: root.try_register()
+                size_hint: .3, 1
+                md_bg_color: "#fcbf49"
+            MDLabel:
+                size_hint: .3, 1
+            MDRaisedButton:
+                id: cancel
+                text: "Cancel"
+                on_press: root.cancel()
+                size_hint: .3, 1
+                md_bg_color: "#e63946"
+        Widget:
+            size_hint_y: None
+            height: 100
+<HomeScreen>:
+    size: 700, 700
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDLabel:
+        text: "Football record"
+        font_size: 50
+        size_hint: .2, .1
+        halign: "center"
+        pos_hint: {"center_x": .5, "center_y":.8}
+
+    MDRaisedButton:
+        text: "Record game?"
+        size_hint: 0.2, .1
+        halign: "center"
+        pos_hint: {"center_x": .5, "center_y":.1}
+        on_press: root.recordgame()
+
+<RecordScreen>:
+    size: 5000, 5000
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .8, 1
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+        MDLabel:
+            text: "Record game"
+            size_hint: 1, .1
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y":.5}
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, .1
+            MDTextField:
+                id: Teamname1
+                hint_text: "Enter Team 1 name"
+                helper_text_mode: "on_error"
+                on_text: root.teamname1_empty()
+                required: False
+            MDTextField:
+                id: Teamname2
+                hint_text: "Enter Team 2 name"
+                helper_text_mode: "on_error"
+                on_text: root.teamname2_empty()
+                required: False
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, .1
+            MDTextField:
+                id: Score1
+                hint_text: "Enter team 1 score"
+                input_filter: "int"
+                helper_text_mode: "on_error"
+                on_text: root.score1_empty()
+                required: False
+
+            MDTextField:
+                id: Score2
+                hint_text: "Enter team 2 score"
+                input_filter: "int"
+                helper_text_mode: "on_error"
+                on_text: root.score2_empty()
+                required: False
+
+        MDTextField:
+            id: Location
+            hint_text: "Location"
+            size_hint: 1, .1
+            helper_text_mode: "on_error"
+            on_text: root.location_empty()
+            required: False
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, .1
+            MDTextField:
+                id: day
+                hint_text: "Day"
+                input_filter: "int"
+                max_text_length: 2
+                helper_text_mode: "on_error"
+                helper_text: "Day is not valid"
+                on_text: root.day_empty()
+                required: False
+            MDTextField:
+                id: month
+                hint_text: "Month"
+                input_filter: "int"
+                max_text_length: 2
+                helper_text_mode: "on_error"
+                helper_text: "Month is not valid"
+                required: False
+                on_text: root.month_empty
+            MDTextField:
+                id: year
+                hint_text: "Year"
+                input_filter: "int"
+                max_text_length: 4
+                helper_text: "Year is not valid"
+                on_text: root.year_empty
+                required: False
+
+
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text: "Record game?"
+                size_hint: 0.2, .7
+                pos_hint: {"center_x": .25, "center_y":.75}
+                on_press: root.submit()
+            MDRaisedButton:
+                text: "Cancel"
+                size_hint: 0.2, .7
+                pos_hint: {"center_x": .75, "center_y":.75}
+                on_press: root.cancel()
+
+
+<RecordPScreen>
+    size: 500, 500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .8, 1
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+        MDTextField:
+            id: teamname
+            hint_text: "What team was it"
+            helper_text_mode: "on_error"
+            on_text: root.teamname5_empty()
+            required: False
+        MDTextField:
+            id: time
+            hint_text: "What time was the goal in minutes"
+            input_filter: "int"
+            max_text_length: 3
+            helper_text_mode: "on_error"
+            on_text: root.time_empty()
+            required: False
+        MDTextField:
+            id: player
+            hint_text: "Who scored the goal"
+            helper_text_mode: "on_error"
+            on_text: root.player_empty()
+            required: False
+        MDBoxLayout:
+            orientation: "horizontal"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y":.2}
+            MDRaisedButton:
+                id: cancel
+                text: "Cancel"
+                on_press: root.cancel()
+            MDRaisedButton:
+                id: record
+                text: "Record"
+                on_press: root.submit()
+
+<RecordSubScreen>
+    size: 500, 500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .8, 1
+        elevation: 2
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y":.5}
+        padding: dp(50)
+        MDTextField:
+            id: teamname
+            hint_text: "What team was it"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Team name is not valid"
+            on_text: root.teamname5_empty()
+            required: False
+
+        MDTextField:
+            id: time
+            hint_text: "What time was the substitution in minutes"
+            input_filter: "int"
+            max_text_length: 3
+            required: True
+            helper_text_mode: "on_error"
+            on_text: root.time_empty()
+            required: False
+        MDTextField:
+            id: player1
+            hint_text: "Player substituted in"
+            required: True
+            helper_text_mode: "on_error"
+            on_text: root.player_empty()
+            required: False
+        MDTextField:
+            id: player2
+            hint_text: "Player substituted out"
+            required: True
+            helper_text_mode: "on_error"
+            on_text: root.player2_empty()
+            required: False
+        MDBoxLayout:
+            orientation: "horizontal"
+            MDRaisedButton:
+                id: cancel
+                text: "Cancel"
+                on_press: root.cancel()
+            MDRaisedButton:
+                id: record
+                text: "Record"
+                on_press: root.submit()
+
+<DetailsScreen>
+    size: 500, 500
+    FitImage:
+        source: "football_pic_project_3.jpeg"
+    MDCard:
+        size_hint: .8, .9
+        pos_hint: {"center_x":.5, "center_y": .5}
+        radius: 30, 0, 30, 0 #top left, top_right, bottom
+        orientation: "vertical"
+        MDBoxLayout:
+            size_hint: 1, .2
+            orientation: "vertical"
+            MDLabel:
+                id: teams
+                text: "teams"
+                size_hint: 1,.3
+                halign: "center"
+            MDLabel:
+                id: location
+                text: "Location"
+                size_hint: 1, .3
+                halign: "center"
+            MDLabel:
+                id: date
+                text: "Date"
+                size_hint: 1, .3
+                halign: "center"
+        MDLabel:
+            size_hint: 1, .4
+            halign: "center"
+        MDBoxLayout:
+            size_hint: .5, .2
+            orientation: "vertical"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .2}
+
+            MDBoxLayout:
+                orientation: "horizontal"
+
+                MDRaisedButton:
+                    id: "goals"
+                    text: "Record goal?"
+                    on_press: root.parent.current = "RecordPScreen"
+                MDRaisedButton:
+                    id: "substitutions"
+                    text: "Record substitutions"
+                    on_press: root.parent.current = "RecordSubScreen"
+
+            MDRaisedButton:
+                id: "back"
+                text: "Back to home screen"
+                halign: "center"
+                on_press: root.back()
+```
+**Fig 27** This is my whole kivy file for my project
